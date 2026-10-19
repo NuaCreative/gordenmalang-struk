@@ -193,12 +193,12 @@ textarea {
 
 .primary {
     background: var(--navy);
-    color: white;
+    color: #fff;
 }
 
 .gold {
     background: var(--gold);
-    color: white;
+    color: #fff;
 }
 
 .light {
@@ -298,7 +298,9 @@ textarea {
     min-width: 76px;
 }
 
-/* Tabel barang */
+/* =========================
+   TABEL BARANG
+   ========================= */
 
 .receipt table {
     width: 100%;
@@ -329,7 +331,9 @@ textarea {
     color: #888;
 }
 
-/* Total pembayaran */
+/* =========================
+   TOTAL PEMBAYARAN
+   ========================= */
 
 .totals {
     margin: 13px 0 0 auto;
@@ -353,7 +357,9 @@ textarea {
     color: var(--navy);
 }
 
-/* Catatan */
+/* =========================
+   CATATAN
+   ========================= */
 
 .notes {
     font-size: 11px;
@@ -361,22 +367,31 @@ textarea {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     border-top: 1px dashed #bbb;
-    margin-top: 16px;
-    padding-top: 8px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding-top: 4px;
+    line-height: 0.8;
 }
 
 .notes b {
     display: block;
     text-align: left;
-    margin-bottom: -50px;
+    margin: 0;
+    padding: 0;
+    line-height: 0px;
 }
 
 .notes span {
     display: block;
     text-align: left;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
 }
 
-/* Informasi rekening */
+/* =========================
+   INFORMASI REKENING
+   ========================= */
 
 .bank-info {
     margin-top: 20px;
@@ -392,7 +407,9 @@ textarea {
     margin: 2px 0;
 }
 
-/* Ucapan dan status */
+/* =========================
+   UCAPAN DAN STATUS
+   ========================= */
 
 .thank {
     text-align: center;
@@ -413,7 +430,9 @@ textarea {
     white-space: nowrap;
 }
 
-/* Footer aplikasi */
+/* =========================
+   FOOTER APLIKASI
+   ========================= */
 
 footer {
     text-align: center;
@@ -570,7 +589,7 @@ footer {
         box-sizing: border-box !important;
     }
 
-    /* Logo: ukuran konsisten saat cetak */
+    /* Logo */
 
     #receipt .receipt-head {
         display: block !important;
@@ -617,7 +636,7 @@ footer {
         border: 1px solid #ddd !important;
     }
 
-    /* Tabel */
+    /* Tabel barang */
 
     #receipt table {
         width: 100% !important;
@@ -644,26 +663,46 @@ footer {
         page-break-inside: avoid !important;
     }
 
-    /* Total, rekening, catatan, dan ucapan */
+    /* Total, rekening, dan ucapan */
 
     #receipt .totals,
     #receipt .bank-info,
-    #receipt .notes,
     #receipt .thank {
         margin-top: 8px !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
     }
 
+    /* CATATAN: JARAK RAPAT SAAT CETAK/PDF */
+
     #receipt .notes {
-        padding-top: 6px !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 2px !important;
+        padding-bottom: 0 !important;
+        font-size: 10px !important;
+        line-height: 1 !important;
         text-align: left !important;
         white-space: pre-wrap !important;
         overflow-wrap: anywhere !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
     }
 
     #receipt .notes b {
-        margin-bottom: 4px !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: -20px !important;
+        text-align: left !important;
+    }
+
+    #receipt .notes span {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1.1 !important;
+        text-align: left !important;
     }
 
     #receipt .totalrow.grand {
