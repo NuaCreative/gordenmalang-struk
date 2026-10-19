@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Struk Gorden Malang Official</title>
+
+    <!-- Menghubungkan file CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            GORDEN MALANG OFFICIAL
+            <small>CV DEKORASI CREATIVE INTERIOR</small>
+        </div>
+
+        <div class="tag">Aplikasi Pembuat Struk &amp; Invoice</div>
+    </header>
+
+    <main>
+        <section class="panel form-panel">
+            <h2>✦ Invoice</h2>
+
+            <div class="grid">
+                <div class="field">
+                    <label for="number">Nomor Struk</label>
+                    <input id="number" placeholder="GM-20261019-001">
+                </div>
+
+                <div class="field">
+                    <label for="date">Tanggal</label>
+                    <input id="date" type="date">
+                </div>
+
+                <div class="field">
+                    <label for="customer">Nama Customer *</label>
+                    <input id="customer" placeholder="Nama lengkap">
+                </div>
+
+                <div class="field">
+                    <label for="phone">No. WhatsApp Customer</label>
+                    <input id="phone" inputmode="tel" placeholder="08xxxxxxxxxx">
+                </div>
+
+                <div class="field full">
+                    <label for="address">Alamat / Lokasi Pemasangan</label>
+                    <textarea id="address" placeholder="Alamat customer"></textarea>
+                </div>
+            </div>
+
+            <h3>Rincian Produk / Jasa</h3>
+
+            <div class="items-head">
+                <span>Produk / Keterangan</span>
+                <span>Qty</span>
+                <span>Harga satuan</span>
+                <span></span>
+            </div>
+
+            <div id="items"></div>
+
+            <button type="button" class="btn light no-print" id="add">
+                ＋ Tambah item
+            </button>
+
+            <h3>Pembayaran</h3>
+
+            <div class="grid">
+                <div class="field">
+                    <label for="discount">Diskon (Rp)</label>
+                    <input id="discount" type="number" min="0" value="0">
+                </div>
+
+                <div class="field">
+                    <label for="paid">DP / Sudah dibayar (Rp)</label>
+                    <input id="paid" type="number" min="0" value="0">
+                </div>
+
+                <div class="field full">
+                    <label for="method">Metode pembayaran</label>
+                    <select id="method">
+                        <option>Transfer Bank</option>
+                        <option>Tunai</option>
+                        <option>QRIS</option>
+                        <option>Transfer / Tunai</option>
+                        <option>Belum dibayar</option>
+                    </select>
+                </div>
+
+                <div class="field full">
+                    <label for="catatan">Catatan / Ketentuan</label>
+                    <textarea id="catatan" name="catatan" rows="3">Barang yang sudah dibeli tidak dapat ditukar/dikembalikan kecuali ada perjanjian</textarea>
+                </div>
+            </div>
+
+            <div class="btns no-print">
+                <button type="button" class="btn primary" id="print">
+                    Cetak / Simpan PDF
+                </button>
+
+                <button type="button" class="btn gold" id="whatsapp">
+                    Kirim ke WhatsApp
+                </button>
+
+                <button type="button" class="btn light" id="save">
+                    Simpan di perangkat
+                </button>
+
+                <button type="button" class="btn light" id="reset">
+                    Struk baru
+                </button>
+            </div>
+
+            <p class="help-text">
+                Data tersimpan di browser/perangkat ini saja.
+                Untuk sinkronisasi antarperangkat, diperlukan database online.
+            </p>
+        </section>
+
+        <section class="panel receipt-panel">
+            <div class="receipt" id="receipt">
+
+                <!-- HEADER STRUK -->
+                <div class="receipt-head">
+                    <img
+                        src="image/logo gm hitam.png"
+                        alt="Logo Gorden Malang"
+                        class="receipt-logo"
+                    >
+
+                    <div class="receipt-contact">
+                        <div>
+                            Jl. S. Supriadi IX Gg. Pendidikan No. 21 RT. 13 RW. 04
+                        </div>
+                        <div>
+                            ☎ 0822 1133 2228 &nbsp; @GORDENMALANGOFFICIAL
+                        </div>
+                    </div>
+
+                    <p>Gorden Custom • Blinds • Vitrase</p>
+                </div>
+
+                <div class="receipt-title">
+                    <strong>INVOICE</strong>
+                    <span class="status" id="status">BELUM LUNAS</span>
+                </div>
+
+                <div class="meta">
+                    No: <span id="r-number">—</span><br>
+                    Tanggal: <span id="r-date">—</span>
+                </div>
+
+                <div class="customer">
+                    <div>
+                        <b>Customer</b>
+                        <span id="r-customer">—</span>
+                    </div>
+
+                    <div>
+                        <b>WhatsApp</b>
+                        <span id="r-phone">—</span>
+                    </div>
+
+                    <div>
+                        <b>Alamat</b>
+                        <span id="r-address">—</span>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produk / Keterangan</th>
+                            <th>Qty</th>
+                            <th>Harga</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody id="r-items"></tbody>
+                </table>
+
+                <div class="totals">
+                    <div class="totalrow">
+                        <span>Subtotal</span>
+                        <strong id="r-subtotal">Rp0</strong>
+                    </div>
+
+                    <div class="totalrow">
+                        <span>Diskon</span>
+                        <strong id="r-discount">Rp0</strong>
+                    </div>
+
+                    <div class="totalrow grand">
+                        <span>Total</span>
+                        <strong id="r-total">Rp0</strong>
+                    </div>
+
+                    <div class="totalrow">
+                        <span>Sudah dibayar / DP</span>
+                        <strong id="r-paid">Rp0</strong>
+                    </div>
+
+                    <div class="totalrow grand">
+                        <span>Sisa pembayaran</span>
+                        <strong id="r-balance">Rp0</strong>
+                    </div>
+
+                    <div class="totalrow">
+                        <span>Metode</span>
+                        <strong id="r-method">—</strong>
+                    </div>
+                </div>
+                
+                <div class="bank-info">
+                    <p><strong>Rek. BCA</strong> : 4480725838 / a.n. Indra Permana</p>
+                    <p><strong>Rek. Bank Mandiri</strong> : 1440024376342 / a.n. Indra Permana</p>
+                </div>
+
+                <div class="notes">
+                    <b>Catatan:</b><br>
+                    <span id="r-notes">—</span>
+                </div>
+
+                <div class="thank">
+                    Terima kasih atas kepercayaan Anda.
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        Gorden Malang Official · Dokumen dibuat melalui aplikasi struk internal
+    </footer>
+
+    <script>
+        const $ = id => document.getElementById(id);
+
+        const rupiah = n =>
+            new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(Math.max(0, n || 0));
+
+        function setDefaultDateAndNumber() {
+            const today = new Date();
+
+            $('date').value = [
+                today.getFullYear(),
+                String(today.getMonth() + 1).padStart(2, '0'),
+                String(today.getDate()).padStart(2, '0')
+            ].join('-');
+
+            $('number').value =
+                'GM-' +
+                today.getFullYear() +
+                String(today.getMonth() + 1).padStart(2, '0') +
+                String(today.getDate()).padStart(2, '0') +
+                '-001';
+        }
+
+        function addItem(name = '', qty = 1, price = '') {
+            const row = document.createElement('div');
+            row.className = 'item';
+
+            row.innerHTML =
+                '<input class="iname" aria-label="Nama produk" placeholder="Gorden custom / jasa ukur">' +
+                '<input class="qty" aria-label="Jumlah" type="number" min="0" step="0.01" value="1">' +
+                '<input class="price" aria-label="Harga satuan" type="number" min="0" placeholder="0">' +
+                '<button type="button" class="remove no-print" aria-label="Hapus item">×</button>';
+
+            row.querySelector('.iname').value = name;
+            row.querySelector('.qty').value = qty;
+            row.querySelector('.price').value = price;
+
+            row.querySelectorAll('input').forEach(el => {
+                el.addEventListener('input', render);
+            });
+
+            row.querySelector('.remove').onclick = () => {
+                row.remove();
+
+                if (!$('items').children.length) {
+                    addItem();
+                }
+
+                render();
+            };
+
+            $('items').appendChild(row);
+            render();
+        }
+
+        function val(id) {
+            return $(id).value.trim();
+        }
+
+        function getData() {
+            const lines = [...document.querySelectorAll('.item')]
+                .map(r => ({
+                    name: r.querySelector('.iname').value.trim(),
+                    qty: Math.max(
+                        0,
+                        Number(r.querySelector('.qty').value) || 0
+                    ),
+                    price: Math.max(
+                        0,
+                        Number(r.querySelector('.price').value) || 0
+                    )
+                }))
+                .filter(x => x.name || x.price);
+
+            const subtotal = lines.reduce(
+                (sum, x) => sum + x.qty * x.price,
+                0
+            );
+
+            const discount = Math.min(
+                subtotal,
+                Math.max(0, Number($('discount').value) || 0)
+            );
+
+            const total = subtotal - discount;
+
+            const paid = Math.max(
+                0,
+                Number($('paid').value) || 0
+            );
+
+            return {
+                number: val('number'),
+                date: val('date'),
+                customer: val('customer'),
+                phone: val('phone'),
+                address: val('address'),
+                lines,
+                subtotal,
+                discount,
+                total,
+                paid,
+                balance: Math.max(0, total - paid),
+                method: val('method'),
+                notes: val('catatan')
+            };
+        }
+
+        function render() {
+            const d = getData();
+
+            $('r-number').textContent = d.number || '—';
+
+            $('r-date').textContent = d.date
+                ? new Date(d.date + 'T00:00:00').toLocaleDateString(
+                    'id-ID',
+                    {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric'
+                    }
+                )
+                : '—';
+
+            $('r-customer').textContent = d.customer || '—';
+            $('r-phone').textContent = d.phone || '—';
+            $('r-address').textContent = d.address || '—';
+
+            $('r-subtotal').textContent = rupiah(d.subtotal);
+            $('r-discount').textContent = rupiah(d.discount);
+            $('r-total').textContent = rupiah(d.total);
+            $('r-paid').textContent = rupiah(d.paid);
+            $('r-balance').textContent = rupiah(d.balance);
+            $('r-method').textContent = d.method || '—';
+            $('r-notes').textContent = d.notes || '—';
+
+            $('status').textContent =
+                d.total > 0 && d.balance === 0
+                    ? 'LUNAS'
+                    : d.paid > 0
+                        ? 'DP / BELUM LUNAS'
+                        : 'BELUM LUNAS';
+
+            $('r-items').innerHTML = '';
+
+            if (!d.lines.length) {
+                $('r-items').innerHTML =
+                    '<tr><td colspan="4" class="empty-row">Belum ada rincian produk</td></tr>';
+            } else {
+                d.lines.forEach(x => {
+                    const tr = document.createElement('tr');
+
+                    [
+                        x.name || 'Produk',
+                        String(x.qty),
+                        rupiah(x.price),
+                        rupiah(x.qty * x.price)
+                    ].forEach(value => {
+                        const td = document.createElement('td');
+                        td.textContent = value;
+                        tr.appendChild(td);
+                    });
+
+                    $('r-items').appendChild(tr);
+                });
+            }
+        }
+
+        [
+            'number', 'date', 'customer', 'phone', 'address',
+            'discount', 'paid', 'method', 'catatan'
+        ].forEach(id => {
+            $(id).addEventListener('input', render);
+            $(id).addEventListener('change', render);
+        });
+
+        $('add').onclick = () => addItem();
+
+        $('print').onclick = () => {
+            render();
+            window.print();
+        };
+
+        $('whatsapp').onclick = () => {
+            const d = getData();
+
+            if (!d.phone) {
+                alert('Isi nomor WhatsApp customer terlebih dahulu.');
+                return;
+            }
+
+            if (!d.customer) {
+                alert('Isi nama customer terlebih dahulu.');
+                return;
+            }
+
+            const lines = d.lines
+                .map((x, i) =>
+                    `${i + 1}. ${x.name} — ${x.qty} x ${rupiah(x.price)} = ${rupiah(x.qty * x.price)}`
+                )
+                .join('\n');
+
+            const msg =
+                `*GORDEN MALANG OFFICIAL*\n` +
+                `CV Dekorasi Creative Interior\n\n` +
+                `*STRUK / INVOICE*\n` +
+                `No: ${d.number}\n` +
+                `Tanggal: ${d.date}\n` +
+                `Customer: ${d.customer}\n` +
+                `${d.address ? 'Alamat: ' + d.address + '\n' : ''}\n` +
+                `*Rincian:*\n${lines || '-'}\n\n` +
+                `Subtotal: ${rupiah(d.subtotal)}\n` +
+                `Diskon: ${rupiah(d.discount)}\n` +
+                `*TOTAL: ${rupiah(d.total)}*\n` +
+                `DP / Dibayar: ${rupiah(d.paid)}\n` +
+                `*Sisa pembayaran: ${rupiah(d.balance)}*\n` +
+                `Metode: ${d.method}\n\n` +
+                `Catatan: ${d.notes}\n\n` +
+                `Terima kasih telah mempercayakan kebutuhan interior Anda kepada Gorden Malang Official.`;
+
+            let phone = d.phone.replace(/\D/g, '');
+
+            if (phone.startsWith('0')) {
+                phone = '62' + phone.slice(1);
+            } else if (!phone.startsWith('62')) {
+                phone = '62' + phone;
+            }
+
+            window.open(
+                'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg),
+                '_blank'
+            );
+        };
+
+        $('save').onclick = () => {
+            const d = getData();
+
+            if (!d.customer) {
+                alert('Isi nama customer sebelum menyimpan.');
+                return;
+            }
+
+            let saved;
+
+            try {
+                saved = JSON.parse(
+                    localStorage.getItem('gmReceipts') || '[]'
+                );
+            } catch {
+                saved = [];
+            }
+
+            saved.unshift({
+                ...d,
+                savedAt: new Date().toISOString()
+            });
+
+            try {
+                localStorage.setItem(
+                    'gmReceipts',
+                    JSON.stringify(saved.slice(0, 100))
+                );
+
+                alert(
+                    'Struk disimpan di browser ini. Total tersimpan: ' +
+                    Math.min(saved.length, 100)
+                );
+            } catch {
+                alert('Struk gagal disimpan. Penyimpanan browser mungkin penuh.');
+            }
+        };
+        
+
+        $('reset').onclick = () => {
+            if (!confirm(
+                'Mulai struk baru? Data di formulir saat ini akan dikosongkan.'
+            )) {
+                return;
+            }
+
+            ['customer', 'phone', 'address'].forEach(
+                id => $(id).value = ''
+            );
+
+            $('discount').value = 0;
+            $('paid').value = 0;
+            $('method').value = 'Transfer Bank';
+
+            $('catatan').value =
+                'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan kecuali ada perjanjian';
+
+            $('items').innerHTML = '';
+
+            setDefaultDateAndNumber();
+            addItem();
+            render();
+        };
+
+        setDefaultDateAndNumber();
+        addItem();
+        render();
+    </script>
+
+    
+</body>
+</html>
