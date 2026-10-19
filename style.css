@@ -368,7 +368,7 @@ textarea {
 .notes b {
     display: block;
     text-align: left;
-    margin-bottom: 4px;
+    margin-bottom: -50px;
 }
 
 .notes span {
