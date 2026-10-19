@@ -19,6 +19,10 @@ body {
     font: 14px/1.5 Arial, sans-serif;
 }
 
+/* =========================
+   HEADER APLIKASI
+   ========================= */
+
 header {
     background: var(--navy);
     color: #fff;
@@ -47,6 +51,10 @@ header .tag {
     font-size: 12px;
     color: #e8e1d5;
 }
+
+/* =========================
+   LAYOUT UTAMA
+   ========================= */
 
 main {
     max-width: 1180px;
@@ -78,6 +86,10 @@ h3 {
     text-transform: uppercase;
     letter-spacing: .7px;
 }
+
+/* =========================
+   FORM INPUT
+   ========================= */
 
 .grid {
     display: grid;
@@ -118,6 +130,10 @@ textarea {
     min-height: 68px;
 }
 
+/* =========================
+   DAFTAR BARANG
+   ========================= */
+
 .items-head,
 .item {
     display: grid;
@@ -154,6 +170,10 @@ textarea {
     cursor: pointer;
     font-size: 18px;
 }
+
+/* =========================
+   TOMBOL
+   ========================= */
 
 .btns {
     display: flex;
@@ -196,6 +216,10 @@ textarea {
     margin-top: 12px;
 }
 
+/* =========================
+   STRUK
+   ========================= */
+
 .receipt {
     background: #fff;
     border: 1px solid #e5e1d9;
@@ -204,7 +228,8 @@ textarea {
     color: #252525;
 }
 
-/* Header struk */
+/* Header struk dan logo */
+
 .receipt-head {
     text-align: center;
     border-bottom: 2px solid var(--navy);
@@ -213,11 +238,20 @@ textarea {
 
 .receipt-logo {
     display: block;
-    width: 210px;
+    width: 180px;
     max-width: 100%;
     height: auto;
     object-fit: contain;
-    margin: 0 auto 4px;
+    margin: 0 auto 8px;
+    flex-shrink: 0;
+}
+
+.receipt-head p {
+    font-size: 11px;
+    color: #0c0c0c;
+    margin: 0;
+    line-height: 1.4;
+    font-weight: bold;
 }
 
 .receipt-contact {
@@ -229,13 +263,7 @@ textarea {
     overflow-wrap: anywhere;
 }
 
-.receipt-head p {
-    font-size: 11px;
-    color: #0c0c0c;
-    margin: 0;
-    line-height: 1.4;
-    font-weight: bold;
-}
+/* Judul dan nomor struk */
 
 .receipt-title {
     display: flex;
@@ -255,6 +283,8 @@ textarea {
     color: #555;
 }
 
+/* Informasi pelanggan */
+
 .customer {
     background: var(--cream);
     padding: 11px;
@@ -267,6 +297,8 @@ textarea {
     display: inline-block;
     min-width: 76px;
 }
+
+/* Tabel barang */
 
 .receipt table {
     width: 100%;
@@ -297,6 +329,8 @@ textarea {
     color: #888;
 }
 
+/* Total pembayaran */
+
 .totals {
     margin: 13px 0 0 auto;
     width: min(100%, 260px);
@@ -319,6 +353,8 @@ textarea {
     color: var(--navy);
 }
 
+/* Catatan */
+
 .notes {
     font-size: 11px;
     text-align: left;
@@ -326,19 +362,38 @@ textarea {
     overflow-wrap: anywhere;
     border-top: 1px dashed #bbb;
     margin-top: 16px;
-    padding: 0;
+    padding-top: 8px;
 }
 
 .notes b {
     display: block;
     text-align: left;
-    margin-bottom: -50px;
+    margin-bottom: 4px;
 }
 
 .notes span {
     display: block;
     text-align: left;
 }
+
+/* Informasi rekening */
+
+.bank-info {
+    margin-top: 20px;
+    padding-top: 6px;
+    border-top: 1px dashed #ccc;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #555;
+    font-weight: bold;
+}
+
+.bank-info p {
+    margin: 2px 0;
+}
+
+/* Ucapan dan status */
+
 .thank {
     text-align: center;
     margin-top: 20px;
@@ -358,6 +413,8 @@ textarea {
     white-space: nowrap;
 }
 
+/* Footer aplikasi */
+
 footer {
     text-align: center;
     color: #818792;
@@ -365,7 +422,10 @@ footer {
     padding: 0 16px 24px;
 }
 
-/* Tablet */
+/* =========================
+   TABLET
+   ========================= */
+
 @media (max-width: 850px) {
     main {
         grid-template-columns: 1fr;
@@ -380,7 +440,10 @@ footer {
     }
 }
 
-/* Smartphone */
+/* =========================
+   SMARTPHONE
+   ========================= */
+
 @media (max-width: 480px) {
     header {
         flex-direction: column;
@@ -414,7 +477,8 @@ footer {
     }
 
     .receipt-logo {
-        width: 190px;
+        width: 180px;
+        max-width: 100%;
     }
 
     .receipt-contact {
@@ -422,126 +486,9 @@ footer {
     }
 }
 
-/* Cetak / Simpan PDF */
-@media print {
-    body {
-        background: white;
-    }
-
-    .no-print,
-    header,
-    main > .form-panel,
-    footer {
-        display: none !important;
-    }
-
-    main {
-        display: block;
-        margin: 0;
-        padding: 0;
-        max-width: none;
-    }
-
-    .receipt-panel {
-        border: 0;
-        padding: 0;
-        box-shadow: none;
-    }
-
-    .panel {
-        border: 0;
-        padding: 0;
-        box-shadow: none;
-    }
-
-    .receipt {
-        border: 0;
-        padding: 5mm;
-        min-height: 0;
-    }
-
-    .receipt table {
-        font-size: 10pt;
-    }
-
-    .receipt-head p {
-        font-size: 9pt;
-    }
-
-    .receipt-contact {
-        font-size: 8pt;
-    }
-
-    @page {
-        size: A4;
-        margin: 12mm;
-    }
-}
-
-.bank-info {
-    margin-top: 20px;
-    padding-top: 6px;
-    border-top: 1px dashed #ccc;
-    font-size: 11px;
-    line-height: 1.5;
-    color: #555;
-    font-weight: bold;
-}
-
-.bank-info p {
-    margin: 2px 0;
-}
-
-@media print {
-    @page {
-        size: A4;
-        margin: 10mm;
-    }
-
-    html,
-    body {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        font-size: 12px;
-        color: #000;
-        background: #fff;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    .receipt,
-    .invoice,
-    .container {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    .notes {
-        text-align: left;
-        white-space: pre-wrap;
-        overflow-wrap: anywhere;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    tr,
-    .section {
-        break-inside: avoid;
-    }
-}
-
-
-/* =================================
-   PENGATURAN CETAK STRUK UKURAN A5
-   ================================= */
+/* =========================
+   PENGATURAN CETAK A5
+   ========================= */
 
 @page {
     size: A5 portrait;
@@ -556,10 +503,12 @@ footer {
         margin: 0 !important;
         padding: 0 !important;
         background: #fff !important;
+        color: #000 !important;
         font-size: 10px !important;
     }
 
-    /* Sembunyikan bagian aplikasi, tampilkan struk saja */
+    /* Sembunyikan aplikasi, tampilkan struk saja */
+
     body * {
         visibility: hidden !important;
     }
@@ -569,34 +518,106 @@ footer {
         visibility: visible !important;
     }
 
+    header,
+    footer,
+    .no-print,
+    main > .form-panel,
+    button,
+    input,
+    select,
+    textarea {
+        display: none !important;
+    }
+
+    main {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .receipt-panel,
+    .panel {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+    }
+
+    /* Area struk */
+
     #receipt {
         position: absolute !important;
         top: 0 !important;
         left: 0 !important;
         width: 100% !important;
         max-width: none !important;
+        min-height: 0 !important;
         margin: 0 !important;
         padding: 0 !important;
-        box-sizing: border-box !important;
+        border: none !important;
+        box-shadow: none !important;
         background: #fff !important;
         color: #000 !important;
         font-size: 10px !important;
         line-height: 1.35 !important;
-        box-shadow: none !important;
-        border: none !important;
+        box-sizing: border-box !important;
     }
 
+    /* Logo: ukuran konsisten saat cetak */
+
     #receipt .receipt-head {
+        display: block !important;
         text-align: center !important;
+        padding-bottom: 8px !important;
     }
 
     #receipt .receipt-logo {
         display: block !important;
-        width: 75px !important;
-        max-width: 75px !important;
+        width: 180px !important;
+        min-width: 180px !important;
+        max-width: 180px !important;
         height: auto !important;
-        margin: 0 auto 5px !important;
+        margin: 0 auto 8px !important;
+        object-fit: contain !important;
+        flex-shrink: 0 !important;
     }
+
+    #receipt .receipt-head p {
+        font-size: 9pt !important;
+    }
+
+    #receipt .receipt-contact {
+        font-size: 8pt !important;
+    }
+
+    /* Judul struk */
+
+    #receipt .receipt-title {
+        margin: 10px 0 !important;
+        gap: 8px !important;
+    }
+
+    #receipt .receipt-title strong {
+        font-size: 12pt !important;
+    }
+
+    /* Data pelanggan */
+
+    #receipt .customer {
+        margin: 8px 0 !important;
+        padding: 7px !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+    }
+
+    /* Tabel */
 
     #receipt table {
         width: 100% !important;
@@ -613,9 +634,17 @@ footer {
         vertical-align: top !important;
     }
 
-    #receipt .customer {
-        margin-top: 8px !important;
+    #receipt th {
+        background: #f2f0eb !important;
+        color: #000 !important;
     }
+
+    #receipt tr {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Total, rekening, catatan, dan ucapan */
 
     #receipt .totals,
     #receipt .bank-info,
@@ -627,70 +656,21 @@ footer {
     }
 
     #receipt .notes {
+        padding-top: 6px !important;
+        text-align: left !important;
         white-space: pre-wrap !important;
         overflow-wrap: anywhere !important;
-        text-align: left !important;
+    }
+
+    #receipt .notes b {
+        margin-bottom: 4px !important;
+    }
+
+    #receipt .totalrow.grand {
+        color: #000 !important;
     }
 
     #receipt * {
         box-sizing: border-box !important;
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-        display: none !important;
-    }
-}
-
-
-@media print {
-    @page {
-        size: A5 portrait;
-        margin: 8mm;
-    }
-
-    html,
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Sembunyikan elemen selain struk */
-    body * {
-        visibility: hidden !important;
-    }
-
-    #receipt,
-    #receipt * {
-        visibility: visible !important;
-    }
-
-    #receipt {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-    }
-}
-
-.receipt-logo {
-    display: block;
-    width: 180px;
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin: 0 auto 8px;
-}
-
-@media print {
-    .receipt-logo {
-        width: 180px !important;
-        max-width: none !important;
-        height: auto !important;
-        object-fit: contain;
     }
 }
