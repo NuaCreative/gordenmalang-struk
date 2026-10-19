@@ -676,3 +676,21 @@ footer {
         box-shadow: none !important;
     }
 }
+
+.receipt-logo {
+    display: block;
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto 8px;
+}
+
+@media print {
+    .receipt-logo {
+        width: 180px !important;
+        max-width: none !important;
+        height: auto !important;
+        object-fit: contain;
+    }
+}
