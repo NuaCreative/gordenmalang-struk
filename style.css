@@ -713,3 +713,28 @@ footer {
         box-sizing: border-box !important;
     }
 }
+
+
+/* CATATAN: RAPI SAAT TAMPIL DAN CETAK */
+.notes {
+    text-align: left;
+    font-size: 10px;
+    line-height: 1.5;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px dashed #bbb;
+    overflow-wrap: anywhere;
+}
+
+.notes b {
+    display: block;
+    margin-bottom: -10px;
+}
+
+.notes span {
+    display: block;
+    white-space: pre-line;
+    text-align: left;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}

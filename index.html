@@ -8,6 +8,8 @@
 
     <!-- Menghubungkan file CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body>
@@ -27,7 +29,7 @@
             <div class="grid">
                 <div class="field">
                     <label for="number">Nomor Struk</label>
-                    <input id="number" placeholder="GM-20261019-001">
+                    <input id="number" placeholder="GM-202610-001">
                 </div>
 
                 <div class="field">
@@ -89,11 +91,13 @@
                         <option>Belum dibayar</option>
                     </select>
                 </div>
-
                 <div class="field full">
                     <label for="catatan">Catatan / Ketentuan</label>
-                    <textarea id="catatan" name="catatan" rows="3">Barang yang sudah dibeli tidak dapat ditukar/dikembalikan kecuali ada perjanjian</textarea>
+                    <textarea id="catatan" name="catatan" rows="5">• Garansi pemasangan 3 bulan: rel, breket, bor, dan kendala instalasi.
+                • Kain tidak bergaransi atas kerusakan akibat faktor pemakaian luar.
+                • Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian.</textarea>
                 </div>
+
             </div>
 
             <div class="btns no-print">
@@ -135,12 +139,17 @@
                         <div>
                             Jl. S. Supriadi IX Gg. Pendidikan No. 21 RT. 13 RW. 04
                         </div>
-                        <div>
-                            ☎ 0822 1133 2228 &nbsp; @GORDENMALANGOFFICIAL
-                        </div>
+                        
+                    <div class="contact-info">
+                        ☎ 0822 1133 2228 &nbsp;
+
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-tiktok"></i>
+                        GORDENMALANGOFFICIAL
+                    </div>
                     </div>
 
-                    <p>Gorden Custom • Blinds • Vitrase</p>
+                    <p>Custom Curtains • Blinds • Vitrase • Curtain Laundry </p>
                 </div>
 
                 <div class="receipt-title">
@@ -246,6 +255,7 @@
                 maximumFractionDigits: 0
             }).format(Math.max(0, n || 0));
 
+      
         function setDefaultDateAndNumber() {
             const today = new Date();
 
@@ -255,13 +265,32 @@
                 String(today.getDate()).padStart(2, '0')
             ].join('-');
 
-            $('number').value =
-                'GM-' +
+            const yearMonth =
                 today.getFullYear() +
-                String(today.getMonth() + 1).padStart(2, '0') +
-                String(today.getDate()).padStart(2, '0') +
-                '-001';
+                String(today.getMonth() + 1).padStart(2, '0');
+
+            const storageKey = 'gmLastReceiptNumber-' + yearMonth;
+            const lastNumber = Number(localStorage.getItem(storageKey)) || 0;
+            const nextNumber = String(lastNumber + 1).padStart(3, '0');
+
+            $('number').value = `GM-${yearMonth}-${nextNumber}`;
         }
+
+
+        function nextReceiptNumber() {
+            const today = new Date();
+            const yearMonth =
+                today.getFullYear() +
+                String(today.getMonth() + 1).padStart(2, '0');
+
+            const storageKey = 'gmLastReceiptNumber-' + yearMonth;
+            const nextNumber = (Number(localStorage.getItem(storageKey)) || 0) + 1;
+
+            localStorage.setItem(storageKey, nextNumber);
+            $('number').value =
+                `GM-${yearMonth}-${String(nextNumber).padStart(3, '0')}`;
+        }
+
 
         function addItem(name = '', qty = 1, price = '') {
             const row = document.createElement('div');
@@ -529,7 +558,9 @@
             $('method').value = 'Transfer Bank';
 
             $('catatan').value =
-                'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan kecuali ada perjanjian';
+                'Garansi pemasangan 3 bulan: rel, breket, bor, dan kendala instalasi lainnya.\n' +
+                'Kain tidak bergaransi atas kerusakan akibat faktor pemakaian luar.\n' +
+                'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian.';
 
             $('items').innerHTML = '';
 
