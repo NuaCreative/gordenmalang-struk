@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Struk Gorden Malang Official</title>
 
-    <!-- Menghubungkan file CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 </head>
 
 <body>
@@ -18,7 +16,6 @@
             GORDEN MALANG OFFICIAL
             <small>CV DEKORASI CREATIVE INTERIOR</small>
         </div>
-
         <div class="tag">Aplikasi Pembuat Struk &amp; Invoice</div>
     </header>
 
@@ -91,13 +88,13 @@
                         <option>Belum dibayar</option>
                     </select>
                 </div>
+
                 <div class="field full">
                     <label for="catatan">Catatan / Ketentuan</label>
                     <textarea id="catatan" name="catatan" rows="5">• Garansi pemasangan 3 bulan: rel, breket, bor, dan kendala instalasi.
-                • Kain tidak bergaransi atas kerusakan akibat faktor pemakaian luar.
-                • Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian.</textarea>
+• Kain tidak bergaransi atas kerusakan akibat faktor pemakaian luar.
+• Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian.</textarea>
                 </div>
-
             </div>
 
             <div class="btns no-print">
@@ -127,7 +124,6 @@
         <section class="panel receipt-panel">
             <div class="receipt" id="receipt">
 
-                <!-- HEADER STRUK -->
                 <div class="receipt-head">
                     <img
                         src="image/logo gm hitam.png"
@@ -139,17 +135,16 @@
                         <div>
                             Jl. S. Supriadi IX Gg. Pendidikan No. 21 RT. 13 RW. 04
                         </div>
-                        
-                    <div class="contact-info">
-                        ☎ 0822 1133 2228 &nbsp;
 
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-tiktok"></i>
-                        GORDENMALANGOFFICIAL
-                    </div>
+                        <div class="contact-info">
+                            ☎ 0822 1133 2228 &nbsp;
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-tiktok"></i>
+                            GORDENMALANGOFFICIAL
+                        </div>
                     </div>
 
-                    <p>Custom Curtains • Blinds • Vitrase • Curtain Laundry </p>
+                    <p>Custom Curtains • Blinds • Vitrase • Curtain Laundry</p>
                 </div>
 
                 <div class="receipt-title">
@@ -222,23 +217,19 @@
                         <strong id="r-method">—</strong>
                     </div>
                 </div>
-                
+
                 <div class="bank-info">
                     <p><strong>Rek. BCA</strong> : 4480725838 / a.n. Indra Permana</p>
                     <p><strong>Rek. Bank Mandiri</strong> : 1440024376342 / a.n. Indra Permana</p>
                 </div>
 
-                <div class="notes">
-                    <b>Catatan:</b>
-                    <span id="r-notes">—</span>
-                </div>
+               <div class="notes"><b>Catatan:</b><span id="r-notes">—</span></div>
 
                 <div class="thank">
                     Terima kasih atas kepercayaan Anda.
                 </div>
             </div>
         </section>
-        
     </main>
 
     <footer>
@@ -255,7 +246,6 @@
                 maximumFractionDigits: 0
             }).format(Math.max(0, n || 0));
 
-      
         function setDefaultDateAndNumber() {
             const today = new Date();
 
@@ -275,22 +265,6 @@
 
             $('number').value = `GM-${yearMonth}-${nextNumber}`;
         }
-
-
-        function nextReceiptNumber() {
-            const today = new Date();
-            const yearMonth =
-                today.getFullYear() +
-                String(today.getMonth() + 1).padStart(2, '0');
-
-            const storageKey = 'gmLastReceiptNumber-' + yearMonth;
-            const nextNumber = (Number(localStorage.getItem(storageKey)) || 0) + 1;
-
-            localStorage.setItem(storageKey, nextNumber);
-            $('number').value =
-                `GM-${yearMonth}-${String(nextNumber).padStart(3, '0')}`;
-        }
-
 
         function addItem(name = '', qty = 1, price = '') {
             const row = document.createElement('div');
@@ -354,7 +328,6 @@
             );
 
             const total = subtotal - discount;
-
             const paid = Math.max(
                 0,
                 Number($('paid').value) || 0
@@ -373,7 +346,12 @@
                 paid,
                 balance: Math.max(0, total - paid),
                 method: val('method'),
+
+                // Menghapus spasi di awal dan akhir setiap baris catatan
                 notes: val('catatan')
+                    .split('\n')
+                    .map(line => line.trim())
+                    .join('\n')
             };
         }
 
@@ -486,7 +464,7 @@
                 `DP / Dibayar: ${rupiah(d.paid)}\n` +
                 `*Sisa pembayaran: ${rupiah(d.balance)}*\n` +
                 `Metode: ${d.method}\n\n` +
-                `Catatan: ${d.notes}\n\n` +
+                `Catatan:\n${d.notes}\n\n` +
                 `Terima kasih telah mempercayakan kebutuhan interior Anda kepada Gorden Malang Official.`;
 
             let phone = d.phone.replace(/\D/g, '');
@@ -540,7 +518,6 @@
                 alert('Struk gagal disimpan. Penyimpanan browser mungkin penuh.');
             }
         };
-        
 
         $('reset').onclick = () => {
             if (!confirm(
@@ -558,9 +535,9 @@
             $('method').value = 'Transfer Bank';
 
             $('catatan').value =
-                'Garansi pemasangan 3 bulan: rel, breket, bor, dan kendala instalasi lainnya.\n' +
-                'Kain tidak bergaransi atas kerusakan akibat faktor pemakaian luar.\n' +
-                'Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian.';
+                '• Garansi pemasangan 3 bulan: rel, breket, bor, dan kendala instalasi.\n' +
+                '• Kain tidak bergaransi atas kerusakan akibat faktor pemakaian luar.\n' +
+                '• Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, kecuali ada perjanjian.';
 
             $('items').innerHTML = '';
 
@@ -573,7 +550,5 @@
         addItem();
         render();
     </script>
-
-    
 </body>
 </html>

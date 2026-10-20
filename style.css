@@ -357,37 +357,44 @@ textarea {
     color: var(--navy);
 }
 
+
+
 /* =========================
    CATATAN
    ========================= */
 
-.notes {
-    font-size: 11px;
-    text-align: left;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    border-top: 1px dashed #bbb;
-    margin-top: 8px;
-    margin-bottom: 0;
-    padding-top: 4px;
-    line-height: 0.8;
-}
+    .notes {
+        font-size: 10px;
+        line-height: 1.2;
+        text-align: left;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: normal;
+        border-top: 1px dashed #bbb;
+        margin: 12px 0 0;
+        padding: 6px 0 0;
+        text-indent: 0;
+    }
 
-.notes b {
-    display: block;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-    line-height: 0px;
-}
+    .notes b {
+        display: block;
+        text-align: left;
+        margin: 0 0 1px 0;
+        padding: 0;
+        line-height: 1.2;
+        text-indent: 0;
+    }
 
-.notes span {
-    display: block;
-    text-align: left;
-    margin: 0;
-    padding: 0;
-    line-height: 1.2;
-}
+    .notes span {
+        display: block;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        line-height: 1.2;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        text-indent: 0;
+    }
 
 /* =========================
    INFORMASI REKENING
@@ -413,7 +420,7 @@ textarea {
 
 .thank {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 11px;
     color: #6d624f;
     font-style: italic;
@@ -666,34 +673,40 @@ footer {
     /* Total, rekening, dan ucapan */
 
     #receipt .totals,
-    #receipt .bank-info,
-    #receipt .thank {
+    #receipt .bank-info {
         margin-top: 8px !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
     }
 
-    /* CATATAN: JARAK RAPAT SAAT CETAK/PDF */
-
-    #receipt .notes {
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        padding-top: 2px !important;
-        padding-bottom: 0 !important;
-        font-size: 10px !important;
-        line-height: 1 !important;
-        text-align: left !important;
-        white-space: pre-wrap !important;
-        overflow-wrap: anywhere !important;
+    #receipt .thank {
+        margin-top: 25px !important;
+        text-align: center !important;
         break-inside: avoid !important;
         page-break-inside: avoid !important;
     }
 
+    
+ /* CATATAN SAAT CETAK / PDF */
+
+    #receipt .notes {
+        display: block !important;
+        margin-top: 8px !important;
+        margin-bottom: 0 !important;
+        padding: 12px 0 0 !important;
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        text-indent: 0 !important;
+    }
+
     #receipt .notes b {
         display: block !important;
-        margin: 0 !important;
+        margin: 0 0 9px 0 !important;
         padding: 0 !important;
-        line-height: -20px !important;
+        line-height: 1.2 !important;
         text-align: left !important;
     }
 
@@ -701,8 +714,11 @@ footer {
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
-        line-height: 1.1 !important;
+        line-height: 1.4 !important;
         text-align: left !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        text-indent: 0 !important;
     }
 
     #receipt .totalrow.grand {
@@ -712,29 +728,4 @@ footer {
     #receipt * {
         box-sizing: border-box !important;
     }
-}
-
-
-/* CATATAN: RAPI SAAT TAMPIL DAN CETAK */
-.notes {
-    text-align: left;
-    font-size: 10px;
-    line-height: 1.5;
-    margin-top: 12px;
-    padding-top: 8px;
-    border-top: 1px dashed #bbb;
-    overflow-wrap: anywhere;
-}
-
-.notes b {
-    display: block;
-    margin-bottom: -10px;
-}
-
-.notes span {
-    display: block;
-    white-space: pre-line;
-    text-align: left;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
 }
