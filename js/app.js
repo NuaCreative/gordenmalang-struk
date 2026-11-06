@@ -15,6 +15,31 @@
         reports: 'Laporan',
         admins: 'Manajemen Admin'
     };
+    const appHistoryKey = 'gmManagementNavigation';
+
+    function recordNavigation(route, moduleKey, replace = false) {
+        const state = history.state && typeof history.state === 'object'
+            ? history.state
+            : {};
+        const nextState = {
+            ...state,
+            [appHistoryKey]: true,
+            gmRoute: route,
+            gmModule: moduleKey
+        };
+
+        if (
+            state[appHistoryKey] &&
+            state.gmRoute === route &&
+            state.gmModule === moduleKey
+        ) return;
+
+        if (replace || !state[appHistoryKey]) {
+            history.replaceState(nextState, '', window.location.href);
+        } else {
+            history.pushState(nextState, '', window.location.href);
+        }
+    }
 
     function getMainElements() {
         return {
@@ -95,7 +120,7 @@
         }
     }
 
-    async function openModule(moduleKey) {
+    async function openModule(moduleKey, { skipHistory = false } = {}) {
         const elements = getMainElements();
         const container = getModuleContainer();
 
@@ -116,6 +141,9 @@
             return;
         }
 
+        if (!skipHistory) {
+            recordNavigation('module', moduleKey, currentModule === null);
+        }
         currentModule = moduleKey;
 
         updateSidebar(moduleKey);
@@ -458,9 +486,12 @@
 
     }
 
-    function openHistory() {
+    function openHistory({ skipHistory = false } = {}) {
         if (Array.isArray(window.gmModuleAccess) && !window.gmModuleAccess.includes('receipts')) {
             return;
+        }
+        if (!skipHistory) {
+            recordNavigation('history', 'receipts', currentModule === null);
         }
         const elements = getMainElements();
         const container = getModuleContainer();
@@ -579,6 +610,18 @@
         if (showHistoryButton) {
             showHistoryButton.addEventListener('click', openHistory);
         }
+
+        // Buat tiap perpindahan modul dapat ditelusuri dengan tombol atau gesture Back.
+        window.addEventListener('popstate', event => {
+            const state = event.state;
+            if (!state || !state[appHistoryKey]) return;
+
+            if (state.gmRoute === 'history') {
+                openHistory({ skipHistory: true });
+            } else if (moduleNames[state.gmModule]) {
+                openModule(state.gmModule, { skipHistory: true });
+            }
+        });
 
         // Tampilkan Dashboard setelah aplikasi berhasil login.
         const observer = new MutationObserver(() => {
