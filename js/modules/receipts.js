@@ -158,6 +158,15 @@
                 const d = new Date();
                 return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
             };
+            const receiptPeriodKey = () => {
+                const parts = new Intl.DateTimeFormat('en', {
+                    timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit'
+                }).formatToParts(new Date());
+                const year = parts.find(part => part.type === 'year')?.value;
+                const month = parts.find(part => part.type === 'month')?.value;
+                if (!year || !month) throw new Error('Tanggal bisnis tidak dapat ditentukan.');
+                return `${year}${month}`;
+            };
             const DEFAULT_NOTES = $('gmReceiptNotes').value;
             let customers = [];
             let selectedCustomer = null;
@@ -188,7 +197,7 @@
                 const requestId = ++numberRequestId;
                 const numberInput = $('gmReceiptNumber');
                 numberInput.value = '';
-                numberInput.placeholder = 'Mengambil nomor dari Supabase…';
+                numberInput.placeholder = 'Memeriksa struk tersimpan…';
                 $('gmReceiptDate').value = todayISO();
                 numberLoading = true;
                 syncReceiptSaveButton();
@@ -196,22 +205,44 @@
                 try {
                     const client = db();
                     if (!client) throw new Error('Koneksi Supabase belum tersedia.');
-                    const { data, error } = await client.rpc('next_gm_receipt_number');
-                    if (error) throw error;
-                    if (requestId !== numberRequestId || editingSaleId) return;
-                    if (typeof data !== 'string' || !/^GM-\d{6}-\d{3,}$/.test(data)) {
-                        throw new Error('Supabase mengembalikan format nomor yang tidak valid.');
+                    const period = receiptPeriodKey();
+                    const prefix = `GM-${period}-`;
+                    const pageSize = 500;
+                    let highestNumber = 0;
+                    let offset = 0;
+
+                    // Baca nomor dari transaksi yang benar-benar tersimpan. Membuka
+                    // modul atau memulai ulang form tidak mengonsumsi nomor struk.
+                    while (true) {
+                        const { data, error } = await client.from('sales')
+                            .select('sale_number')
+                            .like('sale_number', `${prefix}%`)
+                            .order('sale_number', { ascending: true })
+                            .range(offset, offset + pageSize - 1);
+                        if (error) throw error;
+
+                        for (const row of data || []) {
+                            const match = new RegExp(`^GM-${period}-(\\d{3,})$`).exec(row.sale_number || '');
+                            if (!match) continue;
+                            const value = Number(match[1]);
+                            if (Number.isSafeInteger(value)) highestNumber = Math.max(highestNumber, value);
+                        }
+
+                        if (!data || data.length < pageSize) break;
+                        offset += pageSize;
                     }
-                    numberInput.value = data;
+
+                    if (requestId !== numberRequestId || editingSaleId) return;
+                    numberInput.value = `${prefix}${String(highestNumber + 1).padStart(3, '0')}`;
                     numberInput.placeholder = '';
-                    $('receiptPageMessage').textContent = 'Nomor struk online siap digunakan.';
+                    $('receiptPageMessage').textContent = 'Nomor baru dibuat setelah transaksi berhasil disimpan.';
                 } catch (error) {
                     if (requestId !== numberRequestId || editingSaleId) return;
-                    console.error('Gagal meminta nomor struk dari Supabase:', error);
+                    console.error('Gagal memeriksa nomor struk tersimpan:', error);
                     numberInput.value = '';
                     numberInput.placeholder = 'Nomor belum tersedia';
                     $('receiptPageMessage').textContent =
-                        'Nomor struk belum tersedia. Jalankan database/next_gm_receipt_number.sql di Supabase, lalu muat ulang. ' +
+                        'Nomor struk belum tersedia. Periksa koneksi dan akses baca transaksi di Supabase. ' +
                         (error.message || '');
                 } finally {
                     if (requestId === numberRequestId) {
