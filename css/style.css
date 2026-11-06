@@ -1,0 +1,3320 @@
+
+:root {
+    --navy: #14243a;
+    --gold: #b08a4b;
+    --cream: #f7f4ee;
+    --ink: #20252c;
+    --muted: #69717b;
+    --line: #e5e0d6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    background: #f2f3f5;
+    color: var(--ink);
+    font: 14px/1.5 Arial, sans-serif;
+}
+
+/* HEADER APLIKASI */
+header {
+    background: var(--navy);
+    color: #fff;
+    padding: 22px max(20px, calc((100% - 1180px) / 2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.brand small {
+    display: block;
+    color: #d7c19a;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 4px;
+}
+
+header .tag {
+    font-size: 12px;
+    color: #e8e1d5;
+}
+
+/* LAYOUT UTAMA */
+main {
+    max-width: 1180px;
+    margin: 24px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+    gap: 22px;
+}
+
+.panel {
+    min-width: 0;
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 5px 22px #1720330a;
+}
+
+h2 {
+    font-size: 16px;
+    margin: 0 0 16px;
+    color: var(--navy);
+}
+
+h3 {
+    font-size: 13px;
+    margin: 20px 0 10px;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+/* FORM INPUT */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 12px;
+    color: #555;
+    font-weight: 700;
+}
+
+input,
+textarea,
+select {
+    font: inherit;
+    width: 100%;
+    border: 1px solid #d9dce1;
+    border-radius: 7px;
+    padding: 10px;
+    background: #fff;
+    min-width: 0;
+    color: var(--ink);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 68px;
+}
+
+/* DAFTAR BARANG */
+.items-head,
+.item {
+    display: grid;
+    grid-template-columns: minmax(110px, 1.7fr) 65px 105px 32px;
+    gap: 7px;
+    align-items: center;
+}
+
+.items-head {
+    font-size: 11px;
+    color: #68707a;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.item {
+    margin-bottom: 8px;
+}
+
+.item input {
+    padding: 9px 7px;
+}
+
+.item .qty {
+    text-align: center;
+}
+
+.remove {
+    border: 0;
+    background: #fbe9e7;
+    color: #a32d22;
+    border-radius: 6px;
+    height: 34px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* TOMBOL */
+.btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 7px;
+    padding: 11px 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background .15s ease, transform .15s ease;
+}
+
+.primary {
+    background: var(--navy);
+    color: #fff;
+}
+
+.gold {
+    background: var(--gold);
+    color: #fff;
+}
+
+.light {
+    background: #f0f1f3;
+    color: #252a30;
+}
+
+.btn:hover {
+    filter: brightness(.97);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.help-text {
+    font-size: 11px;
+    color: #777;
+    margin-top: 12px;
+}
+
+/* STRUK */
+.receipt {
+    background: #fff;
+    border: 1px solid #e5e1d9;
+    padding: 25px;
+    min-height: 400px;
+    color: #252525;
+}
+
+.receipt-head {
+    text-align: center;
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 12px;
+}
+
+.receipt-logo {
+    display: block;
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto 8px;
+    flex-shrink: 0;
+}
+
+.receipt-head p {
+    font-size: 11px;
+    color: #0c0c0c;
+    margin: 0;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+.receipt-contact {
+    font-size: 9px;
+    line-height: 1.5;
+    color: #555;
+    text-align: center;
+    margin: 0 auto 8px;
+    overflow-wrap: anywhere;
+}
+
+/* JUDUL DAN NOMOR STRUK */
+.receipt-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0 10px;
+    gap: 8px;
+}
+
+.receipt-title strong {
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.meta {
+    font-size: 11px;
+    color: #555;
+}
+
+/* INFORMASI PELANGGAN */
+.customer {
+    background: var(--cream);
+    padding: 11px;
+    margin: 12px 0;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.customer b {
+    display: inline-block;
+    min-width: 76px;
+}
+
+/* TABEL BARANG STRUK */
+.receipt table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.receipt th {
+    text-align: left;
+    background: #f2f0eb;
+    padding: 8px 5px;
+}
+
+.receipt td {
+    padding: 8px 5px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.receipt td:nth-child(n + 2),
+.receipt th:nth-child(n + 2) {
+    text-align: right;
+}
+
+.empty-row {
+    text-align: center !important;
+    color: #888;
+}
+
+/* TOTAL PEMBAYARAN */
+.totals {
+    margin: 13px 0 0 auto;
+    width: min(100%, 260px);
+    font-size: 12px;
+}
+
+.totalrow {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    gap: 15px;
+}
+
+.totalrow.grand {
+    border-top: 1px solid #aaa;
+    margin-top: 5px;
+    padding-top: 9px;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--navy);
+}
+
+/* CATATAN STRUK */
+.notes {
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    border-top: 1px dashed #bbb;
+    margin: 12px 0 0;
+    padding: 6px 0 0;
+    text-indent: 0;
+}
+
+.notes b {
+    display: block;
+    text-align: left;
+    margin: 0 0 1px;
+    padding: 0;
+    line-height: 1.2;
+    text-indent: 0;
+}
+
+.notes span {
+    display: block;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    text-indent: 0;
+}
+
+/* INFORMASI REKENING */
+.bank-info {
+    margin-top: 20px;
+    padding-top: 6px;
+    border-top: 1px dashed #ccc;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #555;
+    font-weight: bold;
+}
+
+.bank-info p {
+    margin: 2px 0;
+}
+
+/* UCAPAN DAN STATUS */
+.thank {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 11px;
+    color: #6d624f;
+    font-style: italic;
+}
+
+.status {
+    display: inline-block;
+    background: #e9f5ed;
+    color: #27643a;
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* NAVIGASI AKUN */
+.account-bar {
+    width: 100%;
+    max-width: 1180px;
+    margin: 12px auto -12px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.account-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.account-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.account-logout {
+    padding: 7px 11px;
+}
+
+/* RIWAYAT TRANSAKSI */
+#historySection {
+    width: calc(100% - 32px);
+    max-width: 1148px;
+    margin: 24px auto;
+    min-width: 0;
+}
+
+.history-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.history-heading h2 {
+    margin-bottom: 6px;
+}
+
+.history-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+#historySection .field {
+    margin-bottom: 16px;
+}
+
+#historySearch {
+    width: 100%;
+}
+
+#historyMessage {
+    color: var(--muted);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+    margin: 12px 0;
+}
+
+.history-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+.history-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    background: #fff;
+    font-size: 13px;
+}
+
+.history-table th,
+.history-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+.history-table th {
+    background: var(--cream);
+    color: var(--navy);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.history-table td {
+    overflow-wrap: anywhere;
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.history-table tbody tr:hover {
+    background: #faf9f6;
+}
+
+/* TOMBOL AKSI RIWAYAT */
+.history-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.history-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 13px;
+    min-height: 36px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease,
+        border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.history-actions .btn:hover {
+    transform: translateY(-1px);
+}
+
+.history-actions .btn:active {
+    transform: translateY(0);
+}
+
+.history-actions .btn:focus-visible {
+    outline: 3px solid rgba(176, 138, 75, .3);
+    outline-offset: 2px;
+}
+
+.history-actions .btn-pdf {
+    color: #fff;
+    background: #172b46;
+    border-color: #172b46;
+}
+
+.history-actions .btn-pdf:hover {
+    background: #243e60;
+    box-shadow: 0 3px 8px rgba(23, 43, 70, .18);
+}
+
+.history-actions .btn-delete {
+    color: #b42332;
+    background: #fff5f5;
+    border-color: #f0c8cc;
+}
+
+.history-actions .btn-delete:hover {
+    color: #fff;
+    background: #b42332;
+    border-color: #b42332;
+    box-shadow: 0 3px 8px rgba(180, 35, 50, .15);
+}
+
+.history-actions .btn-settle {
+    color: #fff;
+    background: #a47b37;
+    border-color: #a47b37;
+}
+
+.history-actions .btn-settle:hover {
+    background: #896329;
+    border-color: #896329;
+    box-shadow: 0 3px 8px rgba(164, 123, 55, .2);
+}
+
+/* LOGIN SUPABASE */
+.login-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: linear-gradient(145deg, #f7f4ee, #e9edf2);
+}
+
+.login-card {
+    width: min(100%, 420px);
+    padding: 30px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 18px 50px #14243a16;
+}
+
+.login-mark {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    background: var(--navy);
+    color: var(--gold);
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.login-eyebrow {
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    margin: 0 0 6px;
+}
+
+.login-card h1 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 23px;
+    line-height: 1.25;
+}
+
+.login-description {
+    color: var(--muted);
+    margin: 9px 0 22px;
+}
+
+.login-card .field {
+    margin-top: 14px;
+}
+
+.login-submit {
+    width: 100%;
+    margin-top: 20px;
+    min-height: 42px;
+}
+
+.login-submit:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.login-message {
+    min-height: 20px;
+    margin: 12px 0 0;
+    font-size: 12px;
+    color: #a32d22;
+    overflow-wrap: anywhere;
+}
+
+.login-message.success {
+    color: #27643a;
+}
+
+.login-footnote {
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.login-link {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: #8a652e;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-link:hover {
+    color: #60451f;
+    text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    color: #818792;
+    font-size: 11px;
+    padding: 0 16px 24px;
+}
+
+/* GAMBAR DAN LOGO */
+.gm-main img,
+#mainContent img,
+#gmDashboardContainer img {
+    max-width: 100%;
+    height: auto;
+}
+
+.gm-main .receipt-panel img {
+    max-width: 100%;
+}
+
+/* Header lama dalam appContent */
+#appContent header {
+    display: none !important;
+}
+
+/* LOGO SIDEBAR */
+.gm-sidebar {
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+.gm-sidebar-brand {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.gm-sidebar-brand img.gm-logo {
+    display: block;
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* RESPONSIVE TABLET */
+@media (max-width: 850px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-panel {
+        order: 2;
+    }
+
+    header {
+        padding: 18px 20px;
+    }
+}
+
+/* RESPONSIVE SMARTPHONE */
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full {
+        grid-column: auto;
+    }
+
+    .panel {
+        padding: 15px;
+    }
+
+    .items-head,
+    .item {
+        grid-template-columns: minmax(95px, 1.5fr) 48px 88px 28px;
+        gap: 5px;
+    }
+
+    .receipt {
+        padding: 15px;
+    }
+
+    .brand {
+        font-size: 17px;
+    }
+
+    .receipt-logo {
+        width: 180px;
+        max-width: 100%;
+    }
+
+    .receipt-contact {
+        font-size: 8px;
+    }
+
+    .login-card {
+        padding: 23px;
+    }
+
+    .login-card h1 {
+        font-size: 21px;
+    }
+}
+
+/* RESPONSIVE NAVIGASI */
+@media (max-width: 700px) {
+    .account-bar {
+        align-items: flex-start;
+        flex-direction: column;
+        margin: 12px 0;
+    }
+
+    .account-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .account-actions .btn {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+    #historySection {
+        width: calc(100% - 24px);
+        margin: 16px auto;
+        padding: 15px;
+    }
+
+    .history-heading {
+        align-items: flex-start;
+    }
+}
+
+/* RESPONSIVE TOMBOL RIWAYAT */
+@media (max-width: 768px) {
+    .history-actions {
+        gap: 6px;
+    }
+
+    .history-actions .btn {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}
+
+/* CETAK A5 */
+@page {
+    size: A5 portrait;
+    margin: 8mm;
+}
+
+@media print {
+    html,
+    body {
+        width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10px !important;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    #receipt,
+    #receipt * {
+        visibility: visible !important;
+    }
+
+    header,
+    footer,
+    .no-print,
+    main > .form-panel,
+    button,
+    input,
+    select,
+    textarea {
+        display: none !important;
+    }
+
+    main {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .receipt-panel,
+    .panel {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: #fff !important;
+    }
+
+    #historySection,
+    .account-bar {
+        display: none !important;
+    }
+
+    #receipt {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10px !important;
+        line-height: 1.35 !important;
+        box-sizing: border-box !important;
+    }
+
+    #receipt .receipt-head {
+        display: block !important;
+        text-align: center !important;
+        padding-bottom: 8px !important;
+    }
+
+    #receipt .receipt-logo {
+        display: block !important;
+        width: 180px !important;
+        min-width: 0 !important;
+        max-width: 180px !important;
+        height: auto !important;
+        margin: 0 auto 8px !important;
+        object-fit: contain !important;
+        flex-shrink: 0 !important;
+    }
+
+    #receipt .receipt-head p {
+        font-size: 9pt !important;
+    }
+
+    #receipt .receipt-contact {
+        font-size: 8pt !important;
+    }
+
+    #receipt .receipt-title {
+        margin: 10px 0 !important;
+        gap: 8px !important;
+    }
+
+    #receipt .receipt-title strong {
+        font-size: 12pt !important;
+    }
+
+    #receipt .customer {
+        margin: 8px 0 !important;
+        padding: 7px !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+    }
+
+    #receipt table {
+        width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+        font-size: 9px !important;
+    }
+
+    #receipt th,
+    #receipt td {
+        padding: 4px 3px !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        vertical-align: top !important;
+    }
+
+    #receipt th {
+        background: #f2f0eb !important;
+        color: #000 !important;
+    }
+
+    #receipt tr {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    #receipt .totals,
+    #receipt .bank-info {
+        margin-top: 8px !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    #receipt .thank {
+        margin-top: 25px !important;
+        text-align: center !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    #receipt .notes {
+        display: block !important;
+        margin-top: 8px !important;
+        margin-bottom: 0 !important;
+        padding: 12px 0 0 !important;
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        text-indent: 0 !important;
+    }
+
+    #receipt .notes b {
+        display: block !important;
+        margin: 0 0 9px !important;
+        padding: 0 !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+    }
+
+    #receipt .notes span {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1.4 !important;
+        text-align: left !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        text-indent: 0 !important;
+    }
+
+    #receipt .totalrow.grand {
+        color: #000 !important;
+    }
+
+    #receipt * {
+        box-sizing: border-box !important;
+    }
+}
+    /* ===== PERBAIKAN LAYOUT DASHBOARD DAN MODUL ===== */
+
+    .gm-layout {
+        display: flex;
+        align-items: flex-start;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .gm-sidebar {
+        flex: 0 0 250px;
+        width: 250px;
+        min-width: 250px;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .gm-main {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: calc(100% - 250px);
+        padding: 24px;
+    }
+
+    /* Konten modul berada di area utama sebelah kanan */
+    #mainContent,
+    #gmDashboardContainer {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+    }
+
+    /* Kontainer modul tidak membuat kolom baru di bawah dashboard */
+    #mainContent main,
+    #mainContent #historySection {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    /* Sembunyikan modul yang tidak aktif */
+    #mainContent[hidden],
+    #gmDashboardContainer[hidden],
+    #historySection[hidden] {
+        display: none !important;
+    }
+
+    /* Gambar tidak boleh meluap */
+    .gm-main img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Tampilan HP */
+    @media (max-width: 768px) {
+        .gm-layout {
+            flex-direction: column;
+        }
+
+        .gm-sidebar {
+            flex: 0 0 auto;
+            width: 100%;
+            min-width: 0;
+            min-height: auto;
+        }
+
+        .gm-main {
+            width: 100%;
+            padding: 16px;
+        }
+    }
+
+
+    /* ========================================
+    LAYOUT UTAMA MANAGEMENT SYSTEM
+    ======================================== */
+
+    /* Pastikan atribut hidden tetap berfungsi */
+    [hidden] {
+        display: none !important;
+    }
+
+    #appContent {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .gm-app-layout {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        align-items: stretch;
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        gap: 0;
+    }
+
+    /* SIDEBAR KIRI */
+    .gm-sidebar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-self: start;
+        width: 250px;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 24px 16px;
+        background: #14243a;
+        color: #ffffff;
+        box-sizing: border-box;
+    }
+
+    .gm-sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+
+    .gm-sidebar-brand img {
+        display: block;
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    .gm-sidebar-brand strong,
+    .gm-sidebar-brand small {
+        display: block;
+    }
+
+    .gm-sidebar-brand strong {
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    .gm-sidebar-brand small {
+        margin-top: 4px;
+        font-size: 10px;
+        opacity: 0.7;
+    }
+
+    .gm-menu-label {
+        margin: 20px 10px 10px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        color: #b9c2cf;
+    }
+
+    .gm-navigation {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .gm-nav-button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        min-height: 44px;
+        padding: 12px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: #e8edf3;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .gm-nav-button i {
+        width: 18px;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .gm-nav-button span {
+        min-width: 0;
+        font-size: 13px;
+    }
+
+    .gm-nav-button:hover,
+    .gm-nav-button.active {
+        background: #263c58;
+        color: #ffffff;
+    }
+
+    .gm-sidebar-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: auto;
+        padding: 24px 10px 4px;
+        color: #c4ccd7;
+        font-size: 10px;
+    }
+
+    /* AREA KERJA KANAN */
+    .gm-main {
+        min-width: 0;
+        width: 100%;
+        padding: 24px 28px;
+        box-sizing: border-box;
+        background: #f5f6f8;
+    }
+
+    /* BAGIAN ATAS HALAMAN */
+    .gm-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+
+    .gm-page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #14243a;
+    }
+
+    .gm-page-description {
+        margin-top: 6px;
+        font-size: 13px;
+        color: #737d8b;
+    }
+
+    .gm-user-area {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    /* KONTEN MODUL */
+    #mainContent {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    #mainContent .panel {
+        width: 100%;
+        min-width: 0;
+        margin: 0 0 24px;
+        box-sizing: border-box;
+    }
+
+    /* HINDARI HEADER LAMA MENGAMBIL RUANG */
+    .gm-main > header {
+        display: none;
+    }
+
+    .gm-main > .account-bar {
+        margin-bottom: 20px;
+    }
+
+    /* RESPONSIVE TABLET DAN HP */
+    @media (max-width: 900px) {
+        .gm-app-layout {
+            grid-template-columns: 210px minmax(0, 1fr);
+        }
+
+        .gm-sidebar {
+            width: 210px;
+            padding: 20px 12px;
+        }
+
+        .gm-main {
+            padding: 20px 16px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .gm-app-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .gm-sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+            max-height: none;
+        }
+
+        .gm-sidebar-footer {
+            margin-top: 20px;
+        }
+
+        .gm-main {
+            padding: 16px 12px;
+        }
+
+        .gm-topbar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .gm-user-area {
+            justify-content: flex-start;
+        }
+    }
+    /* Area konten modul */
+    #gmDashboardContainer,
+    #mainContent,
+    #historySection {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    /* Elemen yang disembunyikan tidak boleh tetap tampil */
+    #gmDashboardContainer[hidden],
+    #mainContent[hidden],
+    #historySection[hidden] {
+        display: none !important;
+    }
+
+    /* Panel dashboard dan modul */
+    .gm-dashboard-panel {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 24px;
+        margin-bottom: 24px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+    }
+
+    /* Pastikan konten utama tidak keluar dari kolom */
+    .gm-main {
+        min-width: 0;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .gm-dashboard-panel {
+            padding: 16px;
+        }
+    }
+
+
+/* MODAL PEMBATALAN TRANSAKSI */
+.cancel-modal[hidden] {
+    display: none !important;
+}
+
+.cancel-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.65);
+}
+
+.cancel-modal-card {
+    width: 100%;
+    max-width: 460px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    border-radius: 14px;
+    background: #fff;
+    color: #1f2937;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.cancel-modal-card h3 {
+    margin: 0 0 12px;
+    font-size: 21px;
+}
+
+.cancel-sale-number {
+    margin-bottom: 14px;
+    font-weight: 700;
+    color: #14243a;
+}
+
+.cancel-modal-warning {
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    background: #fff7ed;
+    color: #9a3412;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.cancel-modal-card label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.cancel-modal-card textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font: inherit;
+    resize: vertical;
+}
+
+.cancel-modal-card textarea:focus {
+    outline: 2px solid #b08a4b;
+    border-color: #b08a4b;
+}
+
+.cancel-modal-error {
+    margin: 10px 0 0;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.cancel-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-modal-btn {
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-modal-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cancel-modal-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.cancel-modal-danger {
+    background: #b91c1c;
+    color: #fff;
+}
+
+@media (max-width: 480px) {
+    .cancel-modal-card {
+        padding: 18px;
+    }
+
+    .cancel-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-modal-btn {
+        width: 100%;
+    }
+}
+
+
+/* ========================================
+   MODUL PENGUKURAN GORDEN MALANG
+======================================== */
+
+.measurement-module {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #1f2937;
+    font-size: 14px;
+}
+
+.measurement-module *,
+.measurement-module *::before,
+.measurement-module *::after {
+    box-sizing: border-box;
+}
+
+.measurement-module [hidden] {
+    display: none !important;
+}
+
+/* Header */
+
+.measurement-module .measurement-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.measurement-module .measurement-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.measurement-module .measurement-header p,
+.measurement-module .measurement-section-heading p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+.measurement-module .measurement-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.measurement-module .measurement-summary article {
+    display: grid;
+    gap: 7px;
+    padding: 14px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.measurement-module .measurement-summary span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.measurement-module .measurement-summary strong {
+    color: #14243a;
+    font-size: 22px;
+}
+
+.measurement-module .measurement-flow {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #eadfc9;
+    border-radius: 10px;
+    background: #faf8f3;
+}
+
+.measurement-module .measurement-flow > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+}
+
+.measurement-module .measurement-flow > div > span {
+    display: inline-grid;
+    flex: 0 0 26px;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 50%;
+    background: #14243a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.measurement-module .measurement-flow p {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+    margin: 0;
+}
+
+.measurement-module .measurement-flow strong {
+    color: #14243a;
+    font-size: 13px;
+}
+
+.measurement-module .measurement-flow small {
+    color: #6b7280;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.measurement-module .measurement-customer-details {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.measurement-module .measurement-customer-details summary {
+    padding: 14px 16px;
+    color: #14243a;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.measurement-module .measurement-customer-details[open] summary {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.measurement-module .measurement-customer-form-wrap {
+    padding: 16px;
+}
+
+.measurement-module #measurementCustomerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.measurement-module .measurement-step-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #9a743b;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.measurement-module .measurement-form-heading {
+    justify-content: flex-start;
+}
+
+.measurement-module .measurement-form-heading h3 {
+    margin: 0;
+    color: #14243a;
+    font-size: 18px;
+}
+
+.measurement-module .measurement-customer-info {
+    display: grid;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.measurement-module .measurement-schedule-label {
+    max-width: 600px;
+    color: #334155;
+}
+
+.measurement-module .measurement-history-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.measurement-module .measurement-history-toolbar input,
+.measurement-module .measurement-history-toolbar select {
+    max-width: 100%;
+    min-height: 40px;
+    padding: 9px 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    background: #fff;
+    color: #1f2937;
+    font: inherit;
+}
+
+.measurement-module .measurement-history-toolbar input {
+    flex: 1 1 280px;
+}
+
+.measurement-module .measurement-history-toolbar select {
+    flex: 0 0 180px;
+}
+
+/* Panel */
+
+.measurement-module .measurement-panel {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgb(15 23 42 / 3%);
+}
+
+.measurement-module .measurement-panel > h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Form */
+
+.measurement-module #measurementForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.measurement-module label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.measurement-module input:not([type="checkbox"]),
+.measurement-module select,
+.measurement-module textarea {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    outline: none;
+    background: #ffffff;
+    color: #1f2937;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.measurement-module textarea {
+    min-height: 72px;
+    resize: vertical;
+}
+
+.measurement-module input:focus,
+.measurement-module select:focus,
+.measurement-module textarea:focus {
+    border-color: #64748b;
+    box-shadow: 0 0 0 3px rgb(100 116 139 / 12%);
+}
+
+.measurement-module input::placeholder,
+.measurement-module textarea::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.measurement-module .measurement-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+/* Pembatas */
+
+.measurement-module .measurement-divider {
+    height: 1px;
+    background: #e5e7eb;
+}
+
+/* Judul bagian */
+
+.measurement-module .measurement-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.measurement-module .measurement-section-heading h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.measurement-module .measurement-section-heading h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Tombol */
+
+.measurement-module .measurement-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.measurement-module .measurement-btn.primary {
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 11px 20px;
+    background: #1f2937;
+    color: #ffffff;
+}
+
+.measurement-module .measurement-btn.primary:hover {
+    background: #374151;
+}
+
+.measurement-module .measurement-btn.secondary {
+    border-color: #d1d5db;
+    background: #ffffff;
+    color: #374151;
+}
+
+.measurement-module .measurement-btn.secondary:hover {
+    background: #f3f4f6;
+}
+
+.measurement-module .measurement-btn.small {
+    min-height: 34px;
+    padding: 7px 10px;
+}
+
+.measurement-module .measurement-btn.text-btn {
+    min-height: 30px;
+    padding: 5px 8px;
+    background: transparent;
+    color: #b91c1c;
+}
+
+.measurement-module .measurement-btn.text-btn:hover {
+    background: #fef2f2;
+}
+
+.measurement-module .measurement-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Ruangan */
+
+.measurement-module #measurementRooms {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.measurement-module .measurement-room {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f9fafb;
+}
+
+.measurement-module .measurement-room > .measurement-section-heading:first-child {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Detail ukuran */
+
+.measurement-module .measurement-openings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.measurement-module .measurement-opening {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.measurement-module .measurement-opening > .measurement-section-heading {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Detail tambahan */
+
+.measurement-module .measurement-extra {
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.measurement-module .measurement-extra summary {
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.measurement-module .measurement-extra summary:hover {
+    color: #111827;
+}
+
+.measurement-module .measurement-extra[open] > summary {
+    margin-bottom: 16px;
+}
+
+.measurement-module .measurement-extra-content {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.measurement-module .measurement-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 9px;
+    font-weight: 400;
+}
+
+.measurement-module input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #374151;
+    cursor: pointer;
+}
+
+/* Pesan */
+
+.measurement-module .measurement-message:empty {
+    display: none;
+}
+
+.measurement-module .measurement-message {
+    padding: 12px 14px;
+    border-radius: 8px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.measurement-module .measurement-message.success {
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.measurement-module .measurement-message.error {
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/* Riwayat */
+
+.measurement-module .measurement-table-wrap {
+    width: 100%;
+    margin-top: 16px;
+    overflow-x: auto;
+}
+
+.measurement-module .measurement-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.measurement-module .measurement-table th,
+.measurement-module .measurement-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.measurement-module .measurement-table th {
+    background: #f9fafb;
+    color: #4b5563;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.measurement-module .measurement-table td {
+    overflow-wrap: anywhere;
+}
+
+.measurement-module .measurement-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 5px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.measurement-module .measurement-status.is-draft {
+    background: #fff4d6;
+    color: #8a5a00;
+}
+
+.measurement-module .measurement-status.is-completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.measurement-module .measurement-status.is-cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.measurement-module .measurement-row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-width: 170px;
+}
+
+.measurement-module .measurement-btn.pdf {
+    border-color: #14243a;
+    background: #14243a;
+    color: #fff;
+}
+
+.measurement-module .measurement-btn.delete {
+    border-color: #f0c8cc;
+    background: #fff0f0;
+    color: #b42332;
+}
+
+/* Tampilan HP */
+
+@media (max-width: 600px) {
+    .measurement-module {
+        gap: 14px;
+    }
+
+    .measurement-module .measurement-header {
+        align-items: flex-start;
+    }
+
+    .measurement-module .measurement-header h2 {
+        font-size: 21px;
+    }
+
+    .measurement-module .measurement-panel {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .measurement-module .measurement-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .measurement-module .measurement-room {
+        padding: 12px;
+        gap: 14px;
+    }
+
+    .measurement-module .measurement-opening {
+        padding: 12px;
+    }
+
+    .measurement-module .measurement-section-heading {
+        align-items: flex-start;
+    }
+
+    .measurement-module .measurement-table {
+        min-width: 780px;
+    }
+
+    .measurement-module .measurement-btn.primary {
+        width: 100%;
+    }
+
+    .measurement-module .measurement-summary {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .measurement-module .measurement-flow {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .measurement-module .measurement-history-toolbar {
+        flex-direction: column;
+    }
+
+    .measurement-module .measurement-history-toolbar input,
+    .measurement-module .measurement-history-toolbar select {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .measurement-module .measurement-row-actions {
+        min-width: 160px;
+    }
+}
+
+
+/* =========================================
+   JADWAL KERJA - KALENDER
+========================================= */
+
+.schedule-module {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    color: #20252c;
+}
+
+.schedule-module * {
+    box-sizing: border-box;
+}
+
+.schedule-module .schedule-header,
+.schedule-module .schedule-header-actions,
+.schedule-module .schedule-calendar-toolbar,
+.schedule-module .schedule-filters,
+.schedule-module .schedule-legend,
+.schedule-module .schedule-modal-header,
+.schedule-module .schedule-modal-actions,
+.schedule-module .schedule-row-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.schedule-module .schedule-header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #14243a;
+}
+
+.schedule-module .schedule-header p {
+    margin: 6px 0 0;
+    color: #69717b;
+}
+
+.schedule-module .schedule-panel {
+    min-width: 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e5e0d6;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px #14243a08;
+}
+
+.schedule-module .schedule-panel h3 {
+    margin: 0 0 16px;
+    color: #14243a;
+    font-size: 17px;
+}
+
+.schedule-module .schedule-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.schedule-module .schedule-btn-primary {
+    background: #14243a;
+    color: white;
+}
+
+.schedule-module .schedule-btn-primary:hover {
+    background: #263c58;
+}
+
+.schedule-module .schedule-btn-light {
+    background: #f5f3ef;
+    color: #263449;
+    border-color: #e5e0d6;
+}
+
+.schedule-module .schedule-btn-danger {
+    background: #fff0f0;
+    color: #b42332;
+    border-color: #f0c8cc;
+}
+
+.schedule-module .schedule-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.schedule-module .schedule-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 17px;
+    background: white;
+    border: 1px solid #e5e0d6;
+    border-radius: 10px;
+}
+
+.schedule-module .schedule-stat span {
+    color: #69717b;
+    font-size: 12px;
+}
+
+.schedule-module .schedule-stat strong {
+    color: #14243a;
+    font-size: 25px;
+}
+
+.schedule-module .schedule-legend {
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.schedule-module .schedule-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #555e69;
+    font-size: 12px;
+}
+
+.schedule-module .schedule-legend i {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.schedule-module .schedule-filters select {
+    width: auto;
+    min-width: 150px;
+    min-height: 38px;
+    padding: 8px 10px;
+    border: 1px solid #d9dce1;
+    border-radius: 7px;
+    background: #fff;
+    color: #20252c;
+    font: inherit;
+    font-size: 12px;
+}
+
+.schedule-module #scheduleCalendar {
+    margin-top: 20px;
+    min-width: 0;
+}
+
+.schedule-module .fc {
+    --fc-border-color: #e8e5de;
+    --fc-button-bg-color: #14243a;
+    --fc-button-border-color: #14243a;
+    --fc-button-hover-bg-color: #263c58;
+    --fc-button-hover-border-color: #263c58;
+    --fc-button-active-bg-color: #b08a4b;
+    --fc-button-active-border-color: #b08a4b;
+    --fc-today-bg-color: #f8f4eb;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.schedule-module .fc .fc-toolbar-title {
+    color: #14243a;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.schedule-module .fc .fc-button {
+    text-transform: capitalize;
+    box-shadow: none;
+}
+
+.schedule-module .fc .fc-button:focus {
+    box-shadow: 0 0 0 2px #b08a4b55;
+}
+
+.schedule-module .fc .fc-daygrid-day-number {
+    padding: 8px;
+    color: #374151;
+    text-decoration: none;
+}
+
+.schedule-module .fc .fc-col-header-cell-cushion {
+    padding: 10px 4px;
+    color: #5d6672;
+    text-decoration: none;
+}
+
+.schedule-module .fc .fc-event {
+    border-radius: 5px;
+    border-width: 0;
+    padding: 2px 4px;
+    cursor: pointer;
+}
+
+.schedule-module .schedule-event-title {
+    overflow: hidden;
+    font-size: 11px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+}
+
+.schedule-module .schedule-event-type {
+    overflow: hidden;
+    font-size: 10px;
+    opacity: .9;
+    text-overflow: ellipsis;
+}
+
+.schedule-module .schedule-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.schedule-module .schedule-table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.schedule-module .schedule-table th,
+.schedule-module .schedule-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e8e5de;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.schedule-module .schedule-table th {
+    background: #f7f4ee;
+    color: #14243a;
+    white-space: nowrap;
+}
+
+.schedule-module .schedule-table-sub {
+    display: block;
+    margin-top: 4px;
+    color: #69717b;
+    font-size: 11px;
+}
+
+.schedule-module .schedule-status {
+    display: inline-block;
+    padding: 5px 8px;
+    border-radius: 5px;
+    background: #f1f2f4;
+    color: #4b5563;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.schedule-module .status-scheduled { background: #e8eefb; color: #35558a; }
+.schedule-module .status-confirmed { background: #e3f4eb; color: #216744; }
+.schedule-module .status-in_progress { background: #fff0d7; color: #8a5b12; }
+.schedule-module .status-completed { background: #dff4e8; color: #216744; }
+.schedule-module .status-cancelled { background: #fee7e7; color: #a32929; }
+.schedule-module .status-rescheduled { background: #eee7fa; color: #68469a; }
+
+.schedule-module .schedule-message:empty {
+    display: none;
+}
+
+.schedule-module .schedule-message {
+    padding: 11px 13px;
+    border-radius: 7px;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.schedule-module .schedule-message.success {
+    background: #edf8f0;
+    color: #216744;
+}
+
+.schedule-module .schedule-message.error,
+.schedule-module .schedule-error {
+    background: #fff0f0;
+    color: #a32929;
+}
+
+.schedule-module .schedule-modal[hidden] {
+    display: none !important;
+}
+
+.schedule-module .schedule-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgb(15 23 42 / 60%);
+}
+
+.schedule-module .schedule-modal-card {
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 22px;
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 20px 60px #0003;
+}
+
+.schedule-module .schedule-modal-header {
+    margin-bottom: 18px;
+}
+
+.schedule-module .schedule-modal-header h3 {
+    margin: 0;
+    color: #14243a;
+    font-size: 19px;
+}
+
+.schedule-module .schedule-modal-close {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 7px;
+    background: #f1f2f4;
+    color: #374151;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.schedule-module .schedule-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.schedule-module .schedule-form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.schedule-module .schedule-form-grid input,
+.schedule-module .schedule-form-grid select,
+.schedule-module .schedule-form-grid textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #d9dce1;
+    border-radius: 7px;
+    background: white;
+    color: #20252c;
+    font: inherit;
+    font-size: 13px;
+}
+
+.schedule-module .schedule-form-grid textarea {
+    resize: vertical;
+}
+
+.schedule-module .schedule-full {
+    grid-column: 1 / -1;
+}
+
+.schedule-module .schedule-modal-actions {
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.schedule-module .schedule-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.schedule-module .schedule-detail-item {
+    min-width: 0;
+    padding: 11px;
+    border-radius: 7px;
+    background: #f7f6f2;
+}
+
+.schedule-module .schedule-detail-item span,
+.schedule-module .schedule-detail-item strong {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.schedule-module .schedule-detail-item span {
+    margin-bottom: 5px;
+    color: #69717b;
+    font-size: 11px;
+}
+
+.schedule-module .schedule-detail-item strong {
+    color: #20252c;
+    font-size: 13px;
+}
+
+.schedule-module .schedule-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+@media (max-width: 760px) {
+    .schedule-module .schedule-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .schedule-module .schedule-calendar-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .schedule-module .schedule-filters {
+        width: 100%;
+    }
+
+    .schedule-module .schedule-filters select {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .schedule-module .fc .fc-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .schedule-module .fc .fc-toolbar-title {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 520px) {
+    .schedule-module .schedule-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .schedule-module .schedule-header-actions {
+        width: 100%;
+    }
+
+    .schedule-module .schedule-header-actions .schedule-btn {
+        flex: 1;
+    }
+
+    .schedule-module .schedule-panel {
+        padding: 13px;
+    }
+
+    .schedule-module .schedule-form-grid,
+    .schedule-module .schedule-detail-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .schedule-module .schedule-full {
+        grid-column: auto;
+    }
+
+    .schedule-module .schedule-modal {
+        padding: 8px;
+    }
+
+    .schedule-module .schedule-modal-card {
+        padding: 16px;
+    }
+}
+
+
+/* Form pelanggan pada modul Jadwal Kerja */
+.schedule-module .schedule-customer-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.schedule-module .schedule-customer-field > label {
+    font-weight: 600;
+}
+
+.schedule-module .schedule-customer-select {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    min-width: 0;
+}
+
+.schedule-module .schedule-customer-select select {
+    flex: 1;
+    min-width: 0;
+}
+
+.schedule-module .schedule-customer-select button {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.schedule-module .schedule-help {
+    color: var(--muted, #69717b);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+    .schedule-module .schedule-customer-select {
+        flex-direction: column;
+    }
+
+    .schedule-module .schedule-customer-select button {
+        width: 100%;
+    }
+}
+
+
+/* Tombol aksi pada tabel pelanggan */
+.gm-customer-actions {
+    white-space: nowrap;
+    min-width: 140px;
+}
+
+.gm-customer-actions .btn {
+    margin: 2px 4px 2px 0;
+    padding: 7px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.gm-customer-actions .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Tombol hapus */
+.gm-customer-delete {
+    background: #b42318;
+    color: #ffffff;
+    border: 1px solid #b42318;
+}
+
+.gm-customer-delete:hover {
+    background: #912018;
+}
+
+/* Lebar tabel agar kolom aksi tetap terlihat */
+.gm-customer-table-wrap {
+    overflow-x: auto;
+}
+
+.gm-customer-table-wrap table {
+    min-width: 850px;
+}
+
+
+/* =========================================
+   GORDEN MALANG - PERBAIKAN CETAK STRUK
+   Mempertahankan desain struk asli
+========================================= */
+
+@media print {
+    @page {
+        size: A5 portrait;
+        margin: 8mm;
+    }
+
+    html,
+    body {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    /* Sembunyikan tampilan aplikasi selain area struk */
+    body * {
+        visibility: hidden !important;
+    }
+
+    /* Pastikan seluruh induk area struk tetap terlihat */
+    #appContent,
+    #mainContent,
+    #mainContent main,
+    #mainContent .receipt-panel,
+    #mainContent .receipt-panel * {
+        visibility: visible !important;
+    }
+
+    /* Jangan tampilkan form input saat dicetak */
+    #mainContent .form-panel {
+        display: none !important;
+    }
+
+    /* Pertahankan panel struk pada alur dokumen normal */
+    #mainContent .receipt-panel {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        transform: none !important;
+        background: #fff !important;
+    }
+
+    /* Pertahankan struktur dan ukuran desain struk */
+    #mainContent .receipt-panel .receipt {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        height: auto !important;
+        margin: 0 !important;
+        transform: none !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+        background: #fff !important;
+    }
+
+    #mainContent .receipt-panel .receipt * {
+        box-sizing: border-box;
+    }
+
+    #mainContent .receipt-panel .receipt img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #mainContent .receipt-panel .receipt table {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Jangan cetak tombol atau kontrol formulir */
+    #mainContent .receipt-panel button,
+    #mainContent .receipt-panel input,
+    #mainContent .receipt-panel select,
+    #mainContent .receipt-panel textarea {
+        display: none !important;
+    }
+
+    /* Hindari pemotongan bagian penting struk */
+    #mainContent .receipt-panel .receipt-head,
+    #mainContent .receipt-panel .customer,
+    #mainContent .receipt-panel .totals,
+    #mainContent .receipt-panel .bank-info,
+    #mainContent .receipt-panel .notes,
+    #mainContent .receipt-panel .thank {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+
+
+.gm-customer-name-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #183d68;
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.gm-customer-name-link:hover {
+    color: #b08a4b;
+    text-decoration: underline;
+}
+
+.gm-customer-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.gm-customer-detail-section {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e4e8ee;
+}
+
+.gm-customer-detail-section h3 {
+    margin: 0 0 8px;
+}
+
+.gm-customer-detail-section > p {
+    color: #697586;
+    margin: 0 0 16px;
+}
+
+.gm-customer-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 20px 0;
+}
+
+.gm-customer-detail-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.gm-customer-detail-grid small {
+    color: #697586;
+}
+
+.gm-customer-detail-grid strong {
+    overflow-wrap: anywhere;
+    font-weight: 500;
+}
+
+.gm-customer-detail-full {
+    grid-column: 1 / -1;
+}
+
+.gm-customer-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.gm-customer-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+    border: 1px solid #e2e7ed;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.gm-customer-stat span {
+    color: #697586;
+    font-size: 13px;
+}
+
+.gm-customer-stat strong {
+    color: #172b46;
+    font-size: 20px;
+    overflow-wrap: anywhere;
+}
+
+.gm-customer-detail-section .gm-customer-table-wrap {
+    border: 1px solid #e2e7ed;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.gm-customer-detail-section .gm-dashboard-table {
+    min-width: 760px;
+}
+
+.gm-customer-detail-section .gm-customer-measurement-table {
+    min-width: 680px;
+}
+
+.gm-customer-detail-section .gm-customer-sales-table {
+    min-width: 920px;
+}
+
+.gm-customer-detail-section .gm-dashboard-table th {
+    background: #f7f8fa;
+    color: #526173;
+}
+
+.gm-history-pdf-action {
+    min-width: 88px;
+    padding: 7px 10px;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .gm-customer-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gm-customer-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gm-customer-detail-full {
+        grid-column: auto;
+    }
+
+    .gm-customer-detail-actions {
+        width: 100%;
+    }
+}
+
+
+/* Baris riwayat dapat diklik */
+.gm-dashboard-table tbody tr.gm-history-clickable {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.gm-dashboard-table tbody tr.gm-history-clickable:hover {
+    background-color: #f5f1e9;
+}
+
+.gm-dashboard-table tbody tr.gm-history-clickable:focus-visible {
+    outline: 2px solid #b08a4b;
+    outline-offset: -2px;
+}
+
+/* Modal detail riwayat */
+.gm-history-modal[hidden] {
+    display: none !important;
+}
+
+.gm-history-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 25, 40, 0.65);
+    overflow-y: auto;
+}
+
+.gm-history-modal-card {
+    width: 100%;
+    max-width: 760px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 24px;
+    border-radius: 12px;
+    background: #fff;
+    color: #14243a;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.gm-history-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e5ed;
+}
+
+.gm-history-modal-header h3 {
+    margin: 0 0 6px;
+    font-size: 20px;
+}
+
+.gm-history-modal-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.gm-history-modal-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 8px;
+    background: #f1f3f6;
+    color: #14243a;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.gm-history-detail-heading {
+    margin: 22px 0 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.gm-history-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.gm-history-detail-item {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.gm-history-detail-item small {
+    display: block;
+    margin-bottom: 7px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.gm-history-detail-value {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.gm-history-detail-section {
+    margin-top: 20px;
+}
+
+.gm-history-detail-section:first-child {
+    margin-top: 0;
+}
+
+.gm-history-detail-section > .gm-history-detail-heading {
+    margin-top: 0;
+}
+
+.gm-history-detail-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e0e5ed;
+    border-radius: 8px;
+}
+
+.gm-history-detail-table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.gm-history-detail-table th,
+.gm-history-detail-table td {
+    padding: 10px 9px;
+    border-bottom: 1px solid #e8ebf0;
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.gm-history-detail-table th {
+    background: #f5f7fa;
+    color: #526173;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.gm-history-detail-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.gm-history-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e5ed;
+}
+
+@media (max-width: 600px) {
+    .gm-history-modal {
+        padding: 10px;
+    }
+
+    .gm-history-modal-card {
+        padding: 16px;
+        max-height: 90vh;
+    }
+
+    .gm-history-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ========================================
+   DETAIL PENGUKURAN PELANGGAN
+======================================== */
+
+.gm-measurement-room-card {
+    margin: 16px 0 22px;
+    padding: 18px;
+    border: 1px solid #dbe3ef;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.gm-measurement-room-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dbe3ef;
+}
+
+.gm-measurement-room-header h5 {
+    margin: 0;
+    color: #14243a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.gm-measurement-opening-heading {
+    margin: 22px 0 12px;
+    color: #14243a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.gm-measurement-opening-card {
+    margin-top: 12px;
+    padding: 16px;
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.gm-measurement-opening-card > h6 {
+    margin: 0 0 14px;
+    color: #14243a;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.gm-measurement-material-heading {
+    margin: 18px 0 12px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.gm-measurement-room-card .gm-history-detail-grid,
+.gm-measurement-opening-card .gm-history-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 12px;
+}
+
+.gm-measurement-room-card .gm-history-detail-item,
+.gm-measurement-opening-card .gm-history-detail-item {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #dbe3ef;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.gm-measurement-room-card .gm-history-detail-item small,
+.gm-measurement-opening-card .gm-history-detail-item small {
+    display: block;
+    margin-bottom: 7px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.gm-measurement-room-card .gm-history-detail-value,
+.gm-measurement-opening-card .gm-history-detail-value {
+    color: #14243a;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.gm-measurement-error {
+    margin: 12px 0;
+    padding: 14px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fef2f2;
+    color: #b91c1c;
+    overflow-wrap: anywhere;
+}
+
+.gm-measurement-room-card > p,
+.gm-measurement-opening-card > p {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.gm-history-loading {
+    padding: 12px 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .gm-measurement-room-card {
+        padding: 12px;
+    }
+
+    .gm-measurement-opening-card {
+        padding: 12px;
+    }
+
+    .gm-measurement-room-card .gm-history-detail-grid,
+    .gm-measurement-opening-card .gm-history-detail-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

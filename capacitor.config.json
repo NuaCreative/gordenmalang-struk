@@ -1,0 +1,8 @@
+{
+  "appId": "id.gordenmalang.management",
+  "appName": "Gorden Malang",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
