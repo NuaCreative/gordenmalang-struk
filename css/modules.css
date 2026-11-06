@@ -260,25 +260,6 @@ body {
     box-sizing: border-box;
 }
 
-.gm-page-enter {
-    animation: gmPageEnter 220ms cubic-bezier(.2, .7, .25, 1) both;
-}
-
-@keyframes gmPageEnter {
-    from {
-        transform: translateY(7px);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .gm-page-enter {
-        animation: none;
-    }
-}
-
 /* Jangan biarkan aturan display lain mengalahkan hidden */
 
 #gmDashboardContainer[hidden],
