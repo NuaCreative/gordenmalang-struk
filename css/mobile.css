@@ -1,0 +1,296 @@
+/* Navigasi dan dashboard yang lebih ringkas pada layar ponsel. */
+.gm-sidebar-header {
+    display: contents;
+}
+
+.gm-sidebar-menu {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+}
+
+.gm-sidebar-toggle {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .gm-app-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .gm-sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: block;
+        width: 100%;
+        height: auto;
+        min-width: 0;
+        min-height: 0;
+        max-height: none;
+        padding: 8px 13px;
+        overflow: visible;
+        border: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, .08);
+        box-shadow: 0 5px 16px rgba(13, 25, 40, .12);
+    }
+
+    .gm-sidebar-header {
+        display: flex;
+        min-height: 42px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .gm-sidebar-brand {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+    }
+
+    .gm-sidebar-brand img.gm-logo {
+        display: block;
+        width: 118px;
+        max-width: 40vw;
+        height: 40px;
+        margin: 0;
+        padding: 4px 7px;
+        border-radius: 9px;
+    }
+
+    .gm-sidebar-brand > div {
+        display: none;
+    }
+
+    .gm-sidebar-toggle {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, .14);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .07);
+        color: #f1d69e;
+        font-size: 16px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .gm-sidebar-toggle:focus-visible {
+        outline: 2px solid #d4b474;
+        outline-offset: 2px;
+    }
+
+    .gm-sidebar-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 12px;
+        left: 12px;
+        z-index: 1001;
+        display: none;
+        max-height: 70vh;
+        max-height: 70dvh;
+        gap: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 13px;
+        border: 1px solid rgba(255, 255, 255, .1);
+        border-radius: 16px;
+        background: linear-gradient(160deg, #182c45, #101d30);
+        box-shadow: 0 16px 38px rgba(9, 20, 34, .3);
+    }
+
+    .gm-sidebar.is-menu-open > .gm-sidebar-menu {
+        display: flex;
+    }
+
+    .gm-sidebar-menu .gm-menu-label {
+        margin: 2px 0 6px;
+        padding: 0 5px;
+        font-size: 8px;
+    }
+
+    .gm-sidebar-menu .gm-navigation {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+    }
+
+    .gm-sidebar-menu .gm-nav-button {
+        min-width: 0;
+        min-height: 41px;
+        gap: 7px;
+        padding: 7px 8px;
+        border-radius: 9px;
+    }
+
+    .gm-sidebar-menu .gm-nav-button i {
+        width: 15px;
+        flex-basis: 15px;
+        font-size: 10px;
+    }
+
+    .gm-sidebar-menu .gm-nav-button span {
+        font-size: 10px;
+        line-height: 1.25;
+    }
+
+    .gm-sidebar-menu .gm-navigation + .gm-menu-label {
+        margin-top: 12px;
+    }
+
+    .gm-sidebar-menu .gm-sidebar-footer {
+        display: none;
+    }
+
+    .gm-main {
+        padding: 14px 13px 24px;
+    }
+
+    .gm-topbar {
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .gm-topbar h1,
+    .gm-page-title {
+        font-size: 22px;
+    }
+
+    .gm-topbar .gm-user-area {
+        gap: 8px;
+    }
+
+    #accountLabel {
+        font-size: 11px;
+    }
+
+    #logoutButton {
+        min-height: 38px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+    }
+
+    .gm-dashboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+        margin-bottom: 12px;
+    }
+
+    .gm-dashboard-heading p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    .gm-dashboard-date {
+        font-size: 11px;
+        text-align: left;
+    }
+
+    .gm-dashboard-quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin: 12px 0 15px;
+    }
+
+    .gm-dashboard-quick-actions .btn {
+        width: 100%;
+        min-height: 42px;
+        padding: 8px 9px;
+        border-radius: 10px;
+        font-size: 12px;
+        line-height: 1.25;
+    }
+
+    .gm-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .gm-stat-card {
+        padding: 13px;
+        border-radius: 13px;
+        box-shadow: none;
+    }
+
+    .gm-stat-label {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    .gm-stat-value {
+        margin-top: 7px;
+        font-size: 20px;
+    }
+
+    .gm-stat-note {
+        margin-top: 4px;
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .gm-dashboard-panel {
+        padding: 15px;
+        margin-bottom: 14px;
+        border-radius: 14px;
+    }
+
+    .gm-dashboard-panel-heading {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .gm-dashboard-panel-heading h3 {
+        font-size: 15px;
+    }
+
+    .gm-dashboard-panel-heading p {
+        font-size: 11px;
+    }
+
+    .gm-dashboard-panel-action {
+        min-height: 36px;
+        padding: 7px 10px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 380px) {
+    .gm-sidebar-menu {
+        right: 8px;
+        left: 8px;
+        padding: 10px;
+    }
+
+    .gm-sidebar-menu .gm-nav-button {
+        gap: 5px;
+        padding: 7px 6px;
+    }
+
+    .gm-sidebar-menu .gm-nav-button span {
+        font-size: 9px;
+    }
+
+    .gm-dashboard-quick-actions .btn {
+        padding-right: 6px;
+        padding-left: 6px;
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gm-sidebar-toggle {
+        transition: none;
+    }
+}

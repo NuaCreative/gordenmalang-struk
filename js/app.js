@@ -494,6 +494,54 @@
         }
     }
 
+    function initMobileNavigation() {
+        const sidebar = document.querySelector('.gm-sidebar');
+        const toggle = document.getElementById('gmSidebarToggle');
+        const icon = toggle?.querySelector('i');
+        const mobileViewport = window.matchMedia('(max-width: 700px)');
+
+        if (!sidebar || !toggle) return;
+
+        const setMenuOpen = open => {
+            const expanded = mobileViewport.matches && open;
+            sidebar.classList.toggle('is-menu-open', expanded);
+            toggle.setAttribute('aria-expanded', String(expanded));
+            toggle.setAttribute('aria-label', expanded ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+            icon?.classList.toggle('fa-bars', !expanded);
+            icon?.classList.toggle('fa-xmark', expanded);
+        };
+
+        toggle.addEventListener('click', () => {
+            setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        sidebar.querySelectorAll('.gm-nav-button').forEach(button => {
+            button.addEventListener('click', () => {
+                if (mobileViewport.matches) setMenuOpen(false);
+            });
+        });
+
+        document.addEventListener('click', event => {
+            if (mobileViewport.matches && !sidebar.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') setMenuOpen(false);
+        });
+
+        const closeOnDesktop = () => {
+            if (!mobileViewport.matches) setMenuOpen(false);
+        };
+
+        if (typeof mobileViewport.addEventListener === 'function') {
+            mobileViewport.addEventListener('change', closeOnDesktop);
+        } else {
+            mobileViewport.addListener(closeOnDesktop);
+        }
+    }
+
     function init() {
         const elements = getMainElements();
 
@@ -510,6 +558,8 @@
                 openModule(button.dataset.module);
             });
         });
+
+        initMobileNavigation();
 
         // Tombol Buat Struk.
         const showFormButton =

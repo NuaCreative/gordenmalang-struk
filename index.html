@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/modules.css">
     <link rel="stylesheet" href="./css/receipts.css">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/mobile.css">
 
     <!-- Font Awesome -->
     <link
@@ -193,20 +194,34 @@
             <!-- SIDEBAR -->
             <aside class="gm-sidebar no-print">
 
-                <div class="gm-sidebar-brand">
-                    <img
-                        src="./image/logo gm hitam.png"
-                        alt="Logo Gorden Malang"
-                        class="gm-logo"
-                    >
+                <div class="gm-sidebar-header">
+                    <div class="gm-sidebar-brand">
+                        <img
+                            src="./image/logo gm hitam.png"
+                            alt="Logo Gorden Malang"
+                            class="gm-logo"
+                        >
 
-                    <div>
-                        <strong>GORDEN MALANG</strong>
-                        <small>MANAGEMENT SYSTEM</small>
+                        <div>
+                            <strong>GORDEN MALANG</strong>
+                            <small>MANAGEMENT SYSTEM</small>
+                        </div>
                     </div>
+
+                    <button
+                        id="gmSidebarToggle"
+                        class="gm-sidebar-toggle"
+                        type="button"
+                        aria-label="Buka menu navigasi"
+                        aria-controls="gmSidebarMenu"
+                        aria-expanded="false"
+                    >
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
                 </div>
 
-                <div class="gm-menu-label">MENU UTAMA</div>
+                <div id="gmSidebarMenu" class="gm-sidebar-menu" aria-label="Navigasi utama">
+                    <div class="gm-menu-label">MENU UTAMA</div>
 
                 <nav class="gm-navigation">
 
@@ -303,6 +318,7 @@
                     <span class="gm-sidebar-footer-label"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> SISTEM INTERNAL</span>
                     <small>CV Dekorasi Creative Interior</small>
                     <strong>Gorden Malang Official</strong>
+                </div>
                 </div>
 
             </aside>
