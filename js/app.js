@@ -120,6 +120,23 @@
         }
     }
 
+    function animateActivePage() {
+        const elements = getMainElements();
+        const container = getModuleContainer();
+        const activePage = elements.history && !elements.history.hidden
+            ? elements.history
+            : container && !container.hidden
+                ? container
+                : elements.main && !elements.main.hidden
+                    ? elements.main
+                    : null;
+
+        if (!activePage) return;
+        activePage.classList.remove('gm-page-enter');
+        void activePage.offsetWidth;
+        activePage.classList.add('gm-page-enter');
+    }
+
     async function openModule(moduleKey, { skipHistory = false } = {}) {
         const elements = getMainElements();
         const container = getModuleContainer();
@@ -158,6 +175,7 @@
         elements.main.hidden = true;
         container.hidden = true;
         container.replaceChildren();
+        requestAnimationFrame(animateActivePage);
 
         // Tombol aksi hanya tampil pada modul Struk & Transaksi.
         const receiptActions = document.getElementById('receiptActions');
@@ -523,6 +541,8 @@
             elements.topbarDescription.textContent =
                 'Lihat dan kelola transaksi yang tersimpan.';
         }
+
+        requestAnimationFrame(animateActivePage);
     }
 
     function initMobileNavigation() {
