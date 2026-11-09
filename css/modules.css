@@ -2302,8 +2302,8 @@ body {
 
 .gm-sidebar-brand > div { padding: 0 3px; }
 .gm-sidebar-brand strong { color: #f7f5ef; font-size: 12px; font-weight: 800; letter-spacing: 1.1px; }
-.gm-sidebar-brand small { display: flex; align-items: center; gap: 7px; margin-top: 4px; color: #c3a66e; font-size: 8px; font-weight: 700; letter-spacing: 1.15px; }
-.gm-sidebar-brand small::before { width: 15px; height: 1px; background: #b08a4b; content: ""; }
+.gm-sidebar-brand small { display: block; margin-top: 4px; color: #c3a66e; font-size: 9px; font-weight: 700; letter-spacing: .8px; }
+.gm-sidebar-brand small::before { display: none; }
 
 .gm-menu-label {
     display: flex;
