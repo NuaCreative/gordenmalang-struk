@@ -156,15 +156,14 @@
                 const { data, error } = await client.auth.signUp({
                     email,
                     password,
-                    options: { data: { full_name: fullName } }
+                    options: {
+                        data: {
+                            full_name: fullName
+                        },
+                        emailRedirectTo:
+                            'https://nuacreative.github.io/gordenmalang-struk/'
+                    }
                 });
-
-                if (error) throw error;
-
-                if (data.session) {
-                    const { error: signOutError } = await client.auth.signOut();
-                    if (signOutError) throw signOutError;
-                }
 
                 signupForm.reset();
                 signupStatus(
