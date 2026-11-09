@@ -32,6 +32,45 @@ CREATE TABLE IF NOT EXISTS public.expenses (
     created_at timestamptz NOT NULL DEFAULT now()
 );
 
+-- Perbarui foreign key dari instalasi lama yang masih menunjuk ke tabel akun lain.
+-- Hentikan migrasi dengan aman jika masih ada pengeluaran yang belum punya akun pasangan.
+DO $$
+DECLARE
+    account_fk_target oid;
+    orphan_expense_count bigint;
+BEGIN
+    SELECT confrelid
+    INTO account_fk_target
+    FROM pg_constraint
+    WHERE conrelid = 'public.expenses'::regclass
+      AND conname = 'expenses_account_id_fkey'
+      AND contype = 'f';
+
+    IF account_fk_target IS DISTINCT FROM 'public.financial_accounts'::regclass THEN
+        SELECT count(*)
+        INTO orphan_expense_count
+        FROM public.expenses e
+        LEFT JOIN public.financial_accounts a ON a.id = e.account_id
+        WHERE a.id IS NULL;
+
+        IF orphan_expense_count > 0 THEN
+            RAISE EXCEPTION
+                'Tidak dapat memperbarui expenses_account_id_fkey: % pengeluaran belum cocok dengan financial_accounts. Cocokkan account_id lama terlebih dahulu.',
+                orphan_expense_count;
+        END IF;
+
+        ALTER TABLE public.expenses
+            DROP CONSTRAINT IF EXISTS expenses_account_id_fkey;
+
+        ALTER TABLE public.expenses
+            ADD CONSTRAINT expenses_account_id_fkey
+            FOREIGN KEY (account_id)
+            REFERENCES public.financial_accounts(id)
+            ON DELETE RESTRICT;
+    END IF;
+END;
+$$;
+
 CREATE TABLE IF NOT EXISTS public.income_entries (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     income_number text NOT NULL UNIQUE,
