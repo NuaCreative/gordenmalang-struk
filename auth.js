@@ -111,7 +111,12 @@
             const password = document.getElementById('loginPassword').value;
             const { data, error } = await client.auth.signInWithPassword({ email, password });
             if (error) {
-                message('Login gagal. Periksa email dan password, lalu coba lagi.');
+                console.error('Login error:', error);
+                message(
+                    error.message === 'Email not confirmed'
+                        ? 'Email belum diverifikasi. Silakan periksa inbox Gmail.'
+                        : 'Login gagal: ' + error.message
+                );
             } else {
                 await validateAndShow(data.user);
             }
