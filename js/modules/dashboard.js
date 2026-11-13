@@ -261,7 +261,16 @@
                     return;
                 }
 
-                const activeSales = sales.filter(sale => !sale.cancelled_at).slice(0, 8);
+                const activeSales = sales
+                    .filter(sale => !sale.cancelled_at)
+                    .sort((a, b) =>
+                        String(a.sale_number || '').localeCompare(
+                            String(b.sale_number || ''),
+                            'id',
+                            { numeric: true }
+                        )
+                    )
+                    .slice(0, 8);
                 if (!activeSales.length) {
                     const empty = document.createElement('p');
                     empty.className = 'gm-dashboard-empty';
