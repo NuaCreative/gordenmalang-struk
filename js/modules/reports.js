@@ -42,9 +42,8 @@
             const now = new Date();
             const today = todayISO();
             const yearStart = monthStart(now.getFullYear(), 0);
-            const sharedRange = window.GMFinance?.currentRange;
-            const initialStart = sharedRange?.start || yearStart;
-            const initialEnd = sharedRange?.end || today;
+            const initialStart = yearStart;
+            const initialEnd = today;
             return `
                 <section class="gm-dashboard gm-reports">
                     <div class="gm-dashboard-heading report-heading">
@@ -90,11 +89,6 @@
                         <section class="gm-dashboard-panel report-panel"><div class="finance-section-heading"><div><h3>Pemasukan per Metode</h3><p>Komposisi uang masuk selama periode.</p></div></div><div id="reportMethodBreakdown"></div></section>
                         <section class="gm-dashboard-panel report-panel"><div class="finance-section-heading"><div><h3>Pengeluaran per Akun</h3><p>Biaya yang sudah dibayar dan sumber dananya.</p></div></div><div id="reportExpenseBreakdown"></div></section>
                     </div>
-
-                    <section class="gm-dashboard-panel report-panel">
-                        <div class="finance-section-heading"><div><h3>Saldo Akun Saat Ini</h3><p>Saldo berjalan dari transaksi yang terhubung ke setiap akun keuangan.</p></div><span id="reportAccountCount" class="finance-count-pill">0 akun</span></div>
-                        <div id="reportAccountSummary"></div>
-                    </section>
 
                     <section class="gm-dashboard-panel report-panel">
                         <div class="finance-section-heading"><div><h3>Rincian Pemasukan</h3><p>Pembayaran pelanggan dan pemasukan manual berdasarkan tanggal diterima.</p></div></div>
@@ -215,7 +209,6 @@
             const finance = window.GMFinance;
             if (!finance || !this.data.payments) return;
             const { start, end } = this.getRange();
-            finance.currentRange = { start, end };
             const payments = this.data.payments.filter(payment => insideRange(payment.payment_date, start, end));
             const manualIncomes = (this.data.manualIncomes || []).filter(income => insideRange(income.income_date, start, end));
             const expenses = this.data.expenses.filter(expense => insideRange(expense.expense_date, start, end));
@@ -299,7 +292,6 @@
                 'Belum ada pengeluaran dibayar pada periode ini.'
             );
 
-            this.renderAccounts(accountMap);
             this.renderPaymentRows(payments, accountMap, manualIncomes);
             this.renderExpenseRows(expenses, accountMap);
             this.showMessage('Data Laporan diperbarui dari modul Keuangan.');

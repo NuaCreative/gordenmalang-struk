@@ -44,9 +44,8 @@
                             <div class="field full">
                                 <label for="gmReceiptMethod">Metode pembayaran</label>
                                 <select id="gmReceiptMethod">
-                                    <option value="Transfer Bank">Transfer Bank</option><option value="Tunai">Tunai</option>
-                                    <option value="QRIS">QRIS</option><option value="Transfer / Tunai">Transfer / Tunai</option>
-                                    <option value="Belum dibayar">Belum dibayar</option>
+                                    <option value="bank_transfer">Transfer</option>
+                                    <option value="cash">Tunai</option>
                                 </select>
                             </div>
                             <div class="field full"><label for="gmReceiptNotes">Catatan / Ketentuan</label>
@@ -151,6 +150,29 @@
             const rupiah = value => new Intl.NumberFormat('id-ID', {
                 style: 'currency', currency: 'IDR', maximumFractionDigits: 0
             }).format(Math.max(0, Number(value) || 0));
+            
+            const paymentMethodLabel = method => ({
+                bank_transfer: 'Transfer',
+                transfer: 'Transfer',
+                cash: 'Tunai',
+                'Transfer Bank': 'Transfer',
+                'Tunai': 'Tunai'
+            }[method] || method || '-');
+
+            const normalizePaymentMethod = method => {
+                const value = String(method || '').trim().toLowerCase();
+
+                if (['bank_transfer', 'transfer', 'transfer bank'].includes(value)) {
+                    return 'bank_transfer';
+                }
+
+                if (['cash', 'tunai'].includes(value)) {
+                    return 'cash';
+                }
+
+                throw new Error('Metode pembayaran harus Transfer atau Tunai.');
+            };
+
             const escapeHTML = value => String(value ?? '')
                 .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -375,7 +397,7 @@
                 put('gmRDate', d.date ? new Date(`${d.date}T00:00:00`).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }) : '—');
                 put('gmRCustomer', d.customer || '—'); put('gmRPhone', d.phone || '—'); put('gmRAddress', d.address || '—');
                 put('gmRSubtotal', rupiah(d.subtotal)); put('gmRDiscount', rupiah(d.discount)); put('gmRTotal', rupiah(d.total));
-                put('gmRPaid', rupiah(d.paid)); put('gmRBalance', rupiah(d.balance)); put('gmRMethod', d.method || '—');
+                put('gmRPaid', rupiah(d.paid)); put('gmRBalance', rupiah(d.balance)); put('gmRMethod', paymentMethodLabel(d.method));
                 put('gmRNotes', d.notes || '—');
                 put('gmReceiptStatus', d.total > 0 && d.balance === 0 ? 'LUNAS' : d.paid > 0 ? 'DP / BELUM LUNAS' : 'BELUM LUNAS');
                 const body = $('gmRItems');
@@ -402,7 +424,7 @@
                 $('gmReceiptAddress').value = '';
                 $('gmReceiptDiscount').value = '0';
                 $('gmReceiptPaid').value = '0';
-                $('gmReceiptMethod').value = 'Transfer Bank';
+                $('gmReceiptMethod').value = 'bank_transfer';
                 $('gmReceiptNotes').value = DEFAULT_NOTES;
                 $('gmReceiptSaveOnline').textContent = 'Simpan Transaksi Online';
                 $('gmReceiptCancelEdit').hidden = true;
@@ -470,7 +492,7 @@
                             p_sale_number: d.number, p_sale_date: d.date, p_customer_id: d.customerId,
                             p_subtotal: d.subtotal, p_discount: d.discount, p_notes: d.notes || null,
                             p_items: d.lines.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
-                            p_paid: d.paid, p_payment_method: d.method
+                            p_paid: d.paid, p_payment_method: normalizePaymentMethod(d.method)
                         });
                         if (error) {
                             if (error.code === 'PGRST202' || error.code === '42883' || /could not find the function|function .*save_gm_receipt.*does not exist/i.test(error.message || '')) {
@@ -599,7 +621,9 @@
                     $('gmReceiptAddress').value = customer.address || '';
                     $('gmReceiptDiscount').value = Number(sale.discount || 0);
                     $('gmReceiptPaid').value = editingOriginalPaid;
-                    $('gmReceiptMethod').value = payments?.[0]?.payment_method || (editingOriginalPaid ? 'Transfer Bank' : 'Belum dibayar');
+                    $('gmReceiptMethod').value = payments?.[0]?.payment_method
+                        ? normalizePaymentMethod(payments[0].payment_method)
+                        : 'bank_transfer';
                     $('gmReceiptNotes').value = sale.notes || '';
                     $('gmReceiptItems').replaceChildren();
                     (items || []).forEach(item => addItem(item.item_name || item.description || '', Number(item.quantity || 1), Number(item.unit_price || 0)));
@@ -661,27 +685,27 @@
 
                 const methodChoice = prompt(
                     `Pilih metode pelunasan transaksi ${saleNumber}:\n` +
-                    '1. Tunai\n2. Transfer bank\n3. QRIS\n4. Kartu debit\n5. Lainnya',
-                    '2'
+                    '1. Transfer\n2. Tunai',
+                    '1'
                 );
+
                 if (methodChoice === null) return;
 
                 const paymentMethods = {
-                    '1': 'cash',
-                    '2': 'bank_transfer',
-                    '3': 'qris',
-                    '4': 'debit_card',
-                    '5': 'other'
+                    '1': 'bank_transfer',
+                    '2': 'cash'
                 };
+
                 const paymentMethodLabels = {
-                    cash: 'Tunai',
-                    bank_transfer: 'Transfer bank',
-                    qris: 'QRIS',
-                    debit_card: 'Kartu debit',
-                    other: 'Lainnya'
+                    bank_transfer: 'Transfer',
+                    cash: 'Tunai'
                 };
+
                 const paymentMethod = paymentMethods[methodChoice.trim()];
-                if (!paymentMethod) return alert('Pilihan metode pembayaran tidak valid.');
+
+                if (!paymentMethod) {
+                    return alert('Pilihan metode pembayaran tidak valid.');
+                }
 
                 const note = prompt(
                     `Masukkan keterangan pelunasan untuk ${saleNumber}:`,
@@ -777,8 +801,9 @@
                         dp: 'DP', installment: 'Cicilan', settlement: 'Pelunasan', refund: 'Pengembalian dana'
                     };
                     const paymentMethodLabels = {
-                        cash: 'Tunai', bank_transfer: 'Transfer bank', transfer: 'Transfer bank',
-                        qris: 'QRIS', debit_card: 'Kartu debit', credit_card: 'Kartu kredit', other: 'Lainnya'
+                        cash: 'Tunai',
+                        bank_transfer: 'Transfer',
+                        transfer: 'Transfer'
                     };
                     const paymentRows = (payments || []).map(payment => {
                         const paymentType = paymentTypeLabels[payment.payment_type] || payment.payment_type || 'Pembayaran';
@@ -998,16 +1023,170 @@
                 }
             }
 
-            function sendWhatsApp() {
+
+            async function sendWhatsApp() {
                 const d = getData();
+
                 if (!d.phone) return alert('Customer belum memiliki nomor WhatsApp.');
                 if (!d.customer) return alert('Pilih customer terlebih dahulu.');
-                const lines = d.lines.map((item, i) => `${i + 1}. ${item.name} — ${item.qty} x ${rupiah(item.price)} = ${rupiah(item.qty * item.price)}`).join('\n');
-                const message = `*GORDEN MALANG OFFICIAL*\nCV Dekorasi Creative Interior\n\n*STRUK / INVOICE*\nNo: ${d.number}\nTanggal: ${d.date}\nCustomer: ${d.customer}\nAlamat: ${d.address || '-'}\n\n*Rincian:*\n${lines || '-'}\n\nSubtotal: ${rupiah(d.subtotal)}\nDiskon: ${rupiah(d.discount)}\n*TOTAL: ${rupiah(d.total)}*\nDibayar: ${rupiah(d.paid)}\n*Sisa: ${rupiah(d.balance)}*\nMetode: ${d.method}\n\nCatatan:\n${d.notes || '-'}\n\nTerima kasih telah mempercayakan kebutuhan interior Anda kepada Gorden Malang Official.`;
-                let phone = d.phone.replace(/\D/g, '');
-                if (phone.startsWith('0')) phone = '62' + phone.slice(1);
-                else if (!phone.startsWith('62')) phone = '62' + phone;
-                window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(message), '_blank');
+
+                const button = $('gmReceiptWhatsApp');
+                const originalText = button.textContent;
+
+                try {
+                    button.disabled = true;
+                    button.textContent = 'Membuat PDF...';
+
+                    // Pastikan library jsPDF tersedia
+                    if (!window.jspdf?.jsPDF) {
+                        throw new Error('Library jsPDF belum tersedia.');
+                    }
+
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a5'
+                    });
+
+                    const money = value => rupiah(value);
+
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setFontSize(16);
+                    pdf.text('GORDEN MALANG OFFICIAL', 105, 18, { align: 'center' });
+
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(9);
+                    pdf.text('CV Dekorasi Creative Interior', 105, 24, { align: 'center' });
+                    pdf.text('Jl. S. Supriadi IX Gg. Pendidikan No. 21', 105, 29, { align: 'center' });
+
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setFontSize(14);
+                    pdf.text('INVOICE', 15, 42);
+
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(9);
+
+                    let y = 51;
+                    const details = [
+                        `Nomor: ${d.number}`,
+                        `Tanggal: ${d.date}`,
+                        `Customer: ${d.customer}`,
+                        `WhatsApp: ${d.phone}`,
+                        `Alamat: ${d.address || '-'}`
+                    ];
+
+                    details.forEach(line => {
+                        pdf.text(line, 15, y);
+                        y += 6;
+                    });
+
+                    y += 5;
+
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('RINCIAN PRODUK / JASA', 15, y);
+                    y += 7;
+
+                    pdf.setFont('helvetica', 'normal');
+
+                    const rows = d.lines.map(item => [
+                        item.name,
+                        String(item.qty),
+                        money(item.price),
+                        money(item.qty * item.price)
+                    ]);
+
+                    pdf.autoTable({
+                        startY: y,
+                        head: [['Produk', 'Qty', 'Harga', 'Jumlah']],
+                        body: rows,
+                        theme: 'grid',
+                        styles: { fontSize: 8 },
+                        headStyles: { fillColor: [20, 36, 58] },
+                        margin: { left: 15, right: 15 }
+                    });
+
+                    y = pdf.lastAutoTable.finalY + 10;
+
+                    const totals = [
+                        ['Subtotal', money(d.subtotal)],
+                        ['Diskon', money(d.discount)],
+                        ['TOTAL', money(d.total)],
+                        ['Sudah Dibayar / DP', money(d.paid)],
+                        ['Sisa Pembayaran', money(d.balance)],
+                        ['Metode', d.method]
+                    ];
+
+                    totals.forEach(([label, value]) => {
+                        if (y > 260) {
+                            pdf.addPage();
+                            y = 20;
+                        }
+
+                        pdf.text(label, 15, y);
+                        pdf.text(String(value), 195, y, { align: 'right' });
+                        y += 7;
+                    });
+
+                    y += 8;
+
+                    const notes = pdf.splitTextToSize(
+                        `Catatan / Ketentuan:\n${d.notes || '-'}`,
+                        175
+                    );
+
+                    if (y + notes.length * 5 > 280) {
+                        pdf.addPage();
+                        y = 20;
+                    }
+
+                    pdf.text(notes, 15, y);
+
+                    const fileName = `${d.number || 'Invoice'}.pdf`;
+                    const pdfBlob = pdf.output('blob');
+                    const pdfFile = new File([pdfBlob], fileName, {
+                        type: 'application/pdf'
+                    });
+
+                    // Unduh PDF otomatis
+                    pdf.save(fileName);
+
+                    // Siapkan WhatsApp
+                    let phone = d.phone.replace(/\D/g, '');
+                    if (phone.startsWith('0')) phone = '62' + phone.slice(1);
+                    else if (!phone.startsWith('62')) phone = '62' + phone;
+
+                    const message =
+                        `Halo ${d.customer}, berikut invoice dari Gorden Malang Official.\n\n` +
+                        `Nomor Invoice: ${d.number}\n` +
+                        `Total: ${money(d.total)}\n` +
+                        `Terima kasih telah mempercayakan kebutuhan interior Anda kepada kami.`;
+
+                    if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+                        await navigator.share({
+                            files: [pdfFile],
+                            title: `Invoice ${d.number}`,
+                            text: message
+                        });
+                    } else {
+                        window.open(
+                            'https://wa.me/' + phone + '?text=' + encodeURIComponent(message),
+                            '_blank'
+                        );
+
+                        alert(
+                            'PDF berhasil dibuat dan diunduh. ' +
+                            'Silakan lampirkan file PDF tersebut di WhatsApp.'
+                        );
+                    }
+
+                } catch (error) {
+                    console.error('Gagal membuat PDF:', error);
+                    alert('Gagal membuat PDF: ' + error.message);
+                } finally {
+                    button.disabled = false;
+                    button.textContent = originalText;
+                }
             }
 
             function showHistory() {

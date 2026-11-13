@@ -249,17 +249,6 @@
                         <article class="finance-kpi is-receivable"><span>Piutang Pelanggan</span><strong id="financeReceivable">—</strong><small id="financeReceivableNote">Sisa transaksi aktif</small></article>
                     </div>
 
-                    <div class="finance-primary-grid">
-                        <section class="gm-dashboard-panel finance-panel">
-                            <div class="finance-section-heading"><div><h3>Tren Arus Kas</h3><p>Perbandingan uang masuk dan keluar selama enam bulan terakhir.</p></div><span class="finance-chart-unit">Rupiah</span></div>
-                            <div id="financeCashflowChart" class="finance-chart-area"><p class="finance-empty">Menghitung arus kas...</p></div>
-                        </section>
-                        <section class="gm-dashboard-panel finance-panel">
-                            <div class="finance-section-heading"><div><h3>Pemasukan per Metode</h3><p>Distribusi pembayaran pelanggan dalam periode terpilih.</p></div></div>
-                            <div id="financeMethodBreakdown"><p class="finance-empty">Menghitung metode pembayaran...</p></div>
-                        </section>
-                    </div>
-
                     <section class="gm-dashboard-panel finance-panel">
                         <div class="finance-section-heading"><div><h3>Saldo Akun Saat Ini</h3><p>Saldo awal + pembayaran transaksi + pemasukan manual − pengeluaran yang sudah dibayar.</p></div><span id="financeAccountCount" class="finance-count-pill">0 akun aktif</span></div>
                         <div id="financeAccounts"><p class="finance-empty">Memuat akun keuangan...</p></div>
@@ -552,26 +541,6 @@
             this.setText('financeReceivableNote', `${receivables.length.toLocaleString('id-ID')} transaksi aktif`);
             this.setText('financeHistorySubtitle', `${formatDate(range.start)} – ${formatDate(range.end)} · ${payments.length + manualIncomes.length + expenses.length} catatan arus kas`);
 
-            renderBarChart(
-                document.getElementById('financeCashflowChart'),
-                getMonthlyTrend(this.payments, this.expenses, this.manualIncomes),
-                'Belum ada arus kas enam bulan terakhir.'
-            );
-
-            const methodTotals = new Map();
-            payments.filter(item => !isRefund(item)).forEach(payment => {
-                const label = methodLabel(payment.payment_method);
-                methodTotals.set(label, (methodTotals.get(label) || 0) + Math.abs(Number(payment.amount) || 0));
-            });
-            manualIncomes.forEach(income => {
-                const label = methodLabel(income.payment_method);
-                methodTotals.set(label, (methodTotals.get(label) || 0) + Math.abs(Number(income.amount) || 0));
-            });
-            renderBreakdown(
-                document.getElementById('financeMethodBreakdown'),
-                [...methodTotals].map(([label, amount]) => ({ label, amount })).sort((a, b) => b.amount - a.amount),
-                'Belum ada pembayaran pelanggan pada periode ini.'
-            );
         },
 
         getReceivables() {
@@ -814,89 +783,176 @@
             }
         },
 
+
         renderHistory() {
             const tbody = document.getElementById('financeHistory');
             if (!tbody) return;
+
             const range = this.getRange();
-            const search = String(document.getElementById('financeHistorySearch')?.value || '').trim().toLocaleLowerCase('id');
+            const search = String(
+                document.getElementById('financeHistorySearch')?.value || ''
+            ).trim().toLocaleLowerCase('id');
+
             const typeFilter = document.getElementById('financeTypeFilter')?.value || 'all';
             const accountFilter = document.getElementById('financeAccountFilter')?.value || 'all';
-            const accountMap = new Map(this.accounts.map(account => [String(account.id), account.account_name]));
-            const saleMap = new Map(this.sales.map(sale => [String(sale.id), sale]));
+
+            const accountMap = new Map(
+                this.accounts.map(account => [
+                    String(account.id),
+                    account.account_name
+                ])
+            );
+
+            const saleMap = new Map(
+                this.sales.map(sale => [
+                    String(sale.id),
+                    sale
+                ])
+            );
 
             const rows = [
                 ...this.payments.map(payment => {
                     const sale = saleMap.get(String(payment.sale_id));
+                    const refund = isRefund(payment);
+
                     return {
                         date: payment.payment_date,
-                        direction: isRefund(payment) ? 'expense' : 'income',
-                        type: isRefund(payment) ? 'Pengembalian dana' : paymentTypeLabel(payment.payment_type),
+                        direction: refund ? 'expense' : 'income',
+                        type: refund ? 'Pengembalian dana' : paymentTypeLabel(payment.payment_type),
                         reference: payment.reference_number || sale?.sale_number || '—',
                         description: payment.notes || sale?.sale_number || 'Pembayaran pelanggan',
-                        accountId: payment.financial_account_id ? String(payment.financial_account_id) : 'unassigned',
-                        account: accountMap.get(String(payment.financial_account_id)) || 'Belum dialokasikan',
+                        accountId: payment.financial_account_id
+                            ? String(payment.financial_account_id)
+                            : 'unassigned',
+                        account: accountMap.get(String(payment.financial_account_id))
+                            || 'Belum dialokasikan',
                         method: methodLabel(payment.payment_method),
-                        status: 'Tercatat',
-                        amount: paymentFlow(payment)
+                        status: refund ? 'Pengembalian dana' : 'Tercatat',
+                        amount: paymentFlow(payment),
+                        paid: true
                     };
                 }),
+
                 ...this.manualIncomes.map(income => ({
                     date: income.income_date,
                     direction: 'income',
                     type: 'Pemasukan manual',
                     reference: income.income_number || '—',
                     description: income.description || income.notes || 'Pemasukan manual',
-                    accountId: income.account_id ? String(income.account_id) : 'unassigned',
-                    account: accountMap.get(String(income.account_id)) || 'Akun tidak aktif / tidak diketahui',
+                    accountId: income.account_id
+                        ? String(income.account_id)
+                        : 'unassigned',
+                    account: accountMap.get(String(income.account_id))
+                        || 'Akun tidak aktif / tidak diketahui',
                     method: methodLabel(income.payment_method),
                     status: 'Tercatat',
-                    amount: Math.abs(Number(income.amount) || 0)
+                    amount: Math.abs(Number(income.amount) || 0),
+                    paid: true
                 })),
-                ...this.expenses.map(expense => ({
-                    date: expense.expense_date,
-                    direction: 'expense',
-                    type: 'Pengeluaran',
-                    reference: expense.expense_number || '—',
-                    description: expense.description || expense.notes || '—',
-                    accountId: expense.account_id ? String(expense.account_id) : 'unassigned',
-                    account: accountMap.get(String(expense.account_id)) || 'Akun tidak aktif / tidak diketahui',
-                    method: `${methodLabel(expense.payment_method)} · ${isPaid(expense.payment_status) ? 'Dibayar' : 'Belum dibayar'}`,
-                    status: isPaid(expense.payment_status) ? 'Dibayar' : 'Belum dibayar',
-                    amount: -Math.abs(Number(expense.amount) || 0)
-                }))
-            ].filter(row => insideRange(row.date, range.start, range.end))
+
+                ...this.expenses.map(expense => {
+                    const paid = isPaid(expense.payment_status);
+
+                    return {
+                        date: expense.expense_date,
+                        direction: 'expense',
+                        type: 'Pengeluaran',
+                        reference: expense.expense_number || '—',
+                        description: expense.description || expense.notes || '—',
+                        accountId: expense.account_id
+                            ? String(expense.account_id)
+                            : 'unassigned',
+                        account: accountMap.get(String(expense.account_id))
+                            || 'Akun tidak aktif / tidak diketahui',
+                        method: methodLabel(expense.payment_method),
+                        status: paid ? 'Dibayar' : 'Belum dibayar',
+                        amount: paid
+                            ? -Math.abs(Number(expense.amount) || 0)
+                            : 0,
+                        paid
+                    };
+                })
+            ]
+                .filter(row => insideRange(row.date, range.start, range.end))
                 .filter(row => typeFilter === 'all' || row.direction === typeFilter)
                 .filter(row => accountFilter === 'all' || row.accountId === accountFilter)
-                .filter(row => !search || [row.type, row.reference, row.description, row.account, row.method].join(' ').toLocaleLowerCase('id').includes(search))
+                .filter(row => !search || [
+                    row.type,
+                    row.reference,
+                    row.description,
+                    row.account,
+                    row.method,
+                    row.status
+                ].join(' ').toLocaleLowerCase('id').includes(search))
                 .sort((a, b) => dateKey(b.date).localeCompare(dateKey(a.date)));
 
             if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="7" class="finance-empty-cell">Tidak ada catatan yang cocok dengan periode dan filter.</td></tr>';
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="finance-empty-cell">
+                            Tidak ada catatan yang cocok dengan periode dan filter.
+                        </td>
+                    </tr>
+                `;
                 return;
             }
 
-            tbody.innerHTML = rows.slice(0, 500).map(row => `
-                <tr>
-                    <td>${escapeHTML(formatDate(row.date))}</td>
-                    <td><span class="finance-kind-badge ${row.direction === 'income' ? 'is-income' : 'is-expense'}">${escapeHTML(row.type)}</span></td>
-                    <td>${escapeHTML(row.reference)}</td>
-                    <td>${escapeHTML(row.description)}</td>
-                    <td>${escapeHTML(row.account)}</td>
-                    <td>${escapeHTML(row.method)}</td>
-                    <td class="numeric ${row.amount < 0 ? 'is-negative' : 'is-positive'}">${row.amount < 0 ? '− ' : '+ '}${escapeHTML(money(Math.abs(row.amount)))}</td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = rows.slice(0, 500).map(row => {
+                const amountClass = row.amount < 0
+                    ? 'is-negative'
+                    : row.amount > 0
+                        ? 'is-positive'
+                        : '';
+
+                const amountLabel = !row.paid && row.direction === 'expense'
+                    ? 'Belum dibayar'
+                    : `${row.amount < 0 ? '− ' : row.amount > 0 ? '+ ' : ''}${money(Math.abs(row.amount))}`;
+
+                const statusClass = !row.paid && row.direction === 'expense'
+                    ? 'is-pending'
+                    : row.direction === 'income'
+                        ? 'is-income'
+                        : 'is-expense';
+
+                return `
+                    <tr>
+                        <td>${escapeHTML(formatDate(row.date))}</td>
+                        <td>
+                            <span class="finance-kind-badge ${row.direction === 'income' ? 'is-income' : 'is-expense'}">
+                                ${escapeHTML(row.type)}
+                            </span>
+                        </td>
+                        <td>${escapeHTML(row.reference)}</td>
+                        <td>${escapeHTML(row.description)}</td>
+                        <td>${escapeHTML(row.account)}</td>
+                        <td>
+                            ${escapeHTML(row.method)}
+                            <br>
+                            <span class="finance-kind-badge ${statusClass}">
+                                ${escapeHTML(row.status)}
+                            </span>
+                        </td>
+                        <td class="numeric ${amountClass}">
+                            ${escapeHTML(amountLabel)}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
 
             if (rows.length > 500) {
                 const note = document.createElement('tr');
                 const cell = document.createElement('td');
+
                 cell.colSpan = 7;
                 cell.className = 'finance-empty-cell';
-                cell.textContent = `Menampilkan 500 dari ${rows.length.toLocaleString('id-ID')} catatan. Persempit periode atau pencarian untuk melihat data lain.`;
+                cell.textContent =
+                    `Menampilkan 500 dari ${rows.length.toLocaleString('id-ID')} catatan. Persempit periode atau pencarian untuk melihat data lain.`;
+
                 note.appendChild(cell);
                 tbody.appendChild(note);
             }
         },
+
 
         showError(message) {
             const accounts = document.getElementById('financeAccounts');
