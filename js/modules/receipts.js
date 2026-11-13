@@ -555,7 +555,7 @@
                     const { data, error } = await client.from('sales').select(`
                         id, sale_number, sale_date, customer_id, subtotal, discount, total, notes,
                         payment_status, cancelled_at, customers ( full_name )
-                    `).order('sale_date', { ascending: false }).limit(500);
+                     `).order('sale_number', { ascending: true }).limit(500);
                     if (error) throw error;
                     historyData = data || [];
                     renderHistory();

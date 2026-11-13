@@ -198,7 +198,7 @@
                             payment_status,
                             notes
                         `)
-                        .order('sale_date', { ascending: false }),
+                        .order('sale_number', { ascending: true }),
 
                     client.from('customers')
                         .select('id, full_name, phone, address'),
