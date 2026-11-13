@@ -32,6 +32,9 @@
     }
 
     function showLogin(text = '') {
+        if (window.GMNotifications) {
+            window.GMNotifications.destroy();
+        }
         loginScreen.hidden = false;
         appContent.hidden = true;
         accountLabel.textContent = '';
@@ -100,6 +103,11 @@
 
             const roleNames = roles.map(item => roleLabel(item.role)).join(', ');
             showApp(`${profile.full_name || user.email} · ${roleNames}`);
+
+            // Mulai sistem notifikasi setelah pengguna berhasil login.
+            if (window.GMNotifications) {
+                window.GMNotifications.init(user.id);
+            }        
         }
 
         loginForm.addEventListener('submit', async (event) => {

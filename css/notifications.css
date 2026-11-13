@@ -1,0 +1,223 @@
+
+.gm-notification-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.gm-notification-button {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line, #e5e0d6);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--navy, #14243a);
+    font-size: 17px;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+}
+
+.gm-notification-button:hover {
+    background: var(--cream, #f7f4ee);
+    border-color: var(--gold, #b08a4b);
+}
+
+.gm-notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    background: #b84040;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.gm-notification-badge[hidden] {
+    display: none;
+}
+
+.gm-notification-panel {
+    position: absolute;
+    z-index: 1000;
+    top: calc(100% + 12px);
+    right: 0;
+    width: min(390px, calc(100vw - 30px));
+    max-height: min(520px, calc(100vh - 110px));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line, #e5e0d6);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 16px 45px rgba(20, 36, 58, .16);
+}
+
+.gm-notification-panel[hidden] {
+    display: none;
+}
+
+.gm-notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-bottom: 1px solid var(--line, #e5e0d6);
+}
+
+.gm-notification-header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.gm-notification-header strong {
+    color: var(--navy, #14243a);
+    font-size: 15px;
+}
+
+.gm-notification-header small {
+    color: var(--muted, #69717b);
+    font-size: 11px;
+}
+
+.gm-notification-mark-all {
+    padding: 6px 0;
+    border: 0;
+    background: transparent;
+    color: var(--gold, #9b753d);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.gm-notification-mark-all:hover {
+    text-decoration: underline;
+}
+
+.gm-notification-list {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.gm-notification-item {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 14px 16px;
+    border: 0;
+    border-bottom: 1px solid #f0ede7;
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.gm-notification-item:hover {
+    background: #faf8f4;
+}
+
+.gm-notification-item.is-unread {
+    background: #fbf8f1;
+}
+
+.gm-notification-icon {
+    width: 35px;
+    height: 35px;
+    flex: 0 0 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #f1ece2;
+    color: var(--gold, #b08a4b);
+    font-size: 14px;
+}
+
+.gm-notification-content {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.gm-notification-content strong {
+    color: var(--navy, #14243a);
+    font-size: 12px;
+}
+
+.gm-notification-content > span {
+    color: #555e68;
+    font-size: 11px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+.gm-notification-content small {
+    color: #9298a0;
+    font-size: 10px;
+}
+
+.gm-notification-unread-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background: var(--gold, #b08a4b);
+}
+
+.gm-notification-empty {
+    min-height: 145px;
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--muted, #69717b);
+    text-align: center;
+    font-size: 12px;
+}
+
+.gm-notification-empty > i {
+    margin-bottom: 5px;
+    color: var(--gold, #b08a4b);
+    font-size: 23px;
+}
+
+.gm-notification-empty strong {
+    color: var(--navy, #14243a);
+    font-size: 13px;
+}
+
+.gm-notification-empty span {
+    max-width: 230px;
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .gm-notification-panel {
+        position: fixed;
+        top: 70px;
+        right: 12px;
+        width: min(390px, calc(100vw - 24px));
+        max-height: calc(100vh - 90px);
+    }
+}

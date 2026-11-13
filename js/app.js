@@ -486,6 +486,44 @@
 
     }
 
+
+        // Membuka detail pekerjaan dari notifikasi.
+        async function openNotification(notification) {
+            if (!notification) return;
+
+            const moduleKey =
+                notification.entity_type === 'schedule'
+                    ? 'schedule'
+                    : notification.entity_type === 'production'
+                        ? 'production'
+                        : null;
+
+            if (!moduleKey) return;
+
+            if (
+                Array.isArray(window.gmModuleAccess) &&
+                !window.gmModuleAccess.includes(moduleKey)
+            ) {
+                alert('Anda tidak memiliki akses ke modul pekerjaan ini.');
+                return;
+            }
+
+            await openModule(moduleKey);
+
+            if (moduleKey === 'schedule') {
+                if (window.GMSchedule) {
+                    window.GMSchedule.openDetail(notification.entity_id);
+                }
+            }
+
+            if (moduleKey === 'production') {
+                if (window.GMProduction) {
+                    window.GMProduction.showDetail(notification.entity_id);
+                }
+            }
+        }
+
+
     function openHistory({ skipHistory = false } = {}) {
         if (Array.isArray(window.gmModuleAccess) && !window.gmModuleAccess.includes('receipts')) {
             return;
@@ -640,6 +678,11 @@
             openModule('dashboard');
         }
     }
+
+        window.GMApp = {
+            openModule,
+            openNotification
+        };
 
     document.addEventListener('DOMContentLoaded', init);
 })();
